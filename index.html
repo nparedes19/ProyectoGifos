@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="estilos/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto&display=swap" rel="stylesheet">
+    
+<body id="body">
+    <div id="expandir"></div>
+    <div id="todo">
+        <header>
+            <div id="inicio" class="rectangulo"></div>
+            <nav>
+                <img id="logo" src="imagenes/logo-desktop.svg" alt="logo">
+                <input type="checkbox" id="btn-hamburguesa">
+                <ul id="menuPrincipal" class="menu">   
+                    <li id ="nocturno" class="lista">MODO NOCTURNO</li>
+                    <li id="btnFav" class ="lista">FAVORITOS</li>
+                    <li id="btnMisGifos" class ="lista">MIS GIFOS</li>
+                    <li><img id="crear"  src="imagenes/button-crear-gifo.svg" alt="crear-gifo"></li>
+                </ul> 
+                <label id="barras" for="btn-hamburguesa"><img id="menuHamburguesa" src="imagenes/burger.svg" alt="menu_hamburguesa"></label>
+                <label id="cerrar" for="btn-hamburguesa"><img id="equisHamburguesa" src="imagenes/close.svg" alt="equis_menu_hamburguesa"></label>
+            </nav>
+            <div id="seccionUno" class="seccion-uno">
+                <h1 id="titulo">Inspírate, busca, guarda y crea los mejores <span id="gifos">GIFOS</span></h1>
+                <img class="ilustracion" src="imagenes/ilustra_header.svg" alt="ilustracion-encabezado">  
+                <div class="container-buscar" id= "contenedorBuscar">   
+                    <form id="barra" class="buscar">
+                        <img src="imagenes/icon-search.svg" class="buscar-hide" id="hideBuscar" alt="lupasBuscar">
+                        <input autocomplete="off" class="barra-busqueda" id="inputSearch" type="text" placeholder="Buscar GIFOS y más">
+                        <button type="submit" id="submit"><img  id="btn" class="boton" src="imagenes/icon-search.svg" alt="buscar"></button>    
+                    </form>
+                    <img class="equis_busqueda" id="equisBusqueda" src="imagenes/close.svg" alt="equisBarraBusqueda">
+                    <div class=containerSuggestions>  
+                        <ul class="lupasHide" id=lupas>
+                            <li><img class = "lupas_hide" id="lupa1" src="imagenes/icon-search.svg" alt="lupa"></li>
+                            <li><img class = "lupas_hide" id="lupa2" src="imagenes/icon-search.svg" alt="lupa"></li>
+                            <li><img class = "lupas_hide" id="lupa3" src="imagenes/icon-search.svg" alt="lupa"></li>
+                            <li><img class = "lupas_hide" id="lupa4" src="imagenes/icon-search.svg" alt="lupa"></li>
+                        </ul>
+                        <ul class="suggestions" id="suggestions-list"></ul>    
+                    </div>  
+                    <div class="linea" id="lineaGris"></div>
+                </div> 
+                <div id="containerTrending">
+                    <h2 id="trending1" class="trending">Trending:</h2>
+                    <div id="palabras" class=parrafo-uno></div>
+                </div>
+                <div id="resultados"></div>  
+                <div id="sinResultados">
+                    <div class="lineaSinResultado"></div>
+                    <div id="tituloSinResultados"></div>
+                    <img class="no-results" src="imagenes/icon-busqueda-sin-resultado.svg" alt="iconoBusquedaSinResultados">
+                    <p class="textoNoResultado">Intenta con otra búsqueda.</p>
+                </div>
+            </div>  
+        </header>
+        <div id="seccionFavoritos">
+            <img class="iconFavoritos" src="imagenes/icon-favoritos.svg" alt="IconoCorazon">
+            <h2 class="titleFavoritos" id="title-favoritos">Favoritos</h2>
+            <div id="boxFavoritos" class="containerFavoritos"></div>
+            <div id="boxFavoritos2" class="containerFavoritos"></div>
+            <div id="boxFavoritos3" class="containerFavoritos"></div>
+            <div id="boxFavoritos4" class="containerFavoritos"></div>
+            <a class="myButton2" id="btnVerMas">VER MAS</a>
+            <a class="myButton2" id="btnVerMas2">VER MAS</a>
+            <a class="myButton2" id="btnVerMas3">VER MAS</a>
+            <a class="myButton2" id="btnVerMas4">VER MAS</a>
+            <div class="containerFavoritosVacio" id="boxFavVacio">
+                <img class="iconSinResultados" src="imagenes/icon-fav-sin-contenido.svg" alt="iconoSinResultados">
+                <p class="parrafoFavoritos" id="parrafo-favoritos">¡Guarda tu primer GIFO en Favoritos para que se muestre aquí!</p>
+            </div>
+        </div>
+        <div id="seccionMisGifos">
+            <img class="iconMisGifos" src="imagenes/icon-mis-gifos.svg" alt="iconoMisGifos">
+            <h2 class="titleMisGifos" id="title_MisGifos">Mis GIFOS</h2>
+            <div class="containerMisGifos" id="boxMisGifos"></div>
+            <div class="containerMisGifos" id="boxMisGifos2"></div>
+            <div class="containerMisGifos" id="boxMisGifos3"></div>
+            <div class="containerMisGifos" id="boxMisGifos4"></div>
+            <div>  
+                <a class="myButtonGifos" id="btn1">VER MÁS</a>
+                <a class="myButtonGifos" id="btn2">VER MÁS</a>
+                <a class="myButtonGifos" id="btn3">VER MÁS</a>
+                <a class="myButtonGifos" id="btn4">VER MÁS</a>
+            </div>  
+            <div class="containerMisGifosVacio" id="containerGifos_vacio">
+                <img class="gifosSinResultados" src="imagenes/icon-mis-gifos-sin-contenido.svg" alt="gifosSinResultados">
+                <p class="parrafoMisGifos" id="parrafo-misgifos">¡Animate a crear tu primer GIFO!</p>
+            </div>
+        </div>
+        <main id="main">
+                <h2 id="trendingGifos" class="trending-gifos">Trending GIFOS</h2>
+                <p id="parrafo2" class="parrafo-dos">Mira los ultimos GIFOS de nuestra comunidad</p>
+                <div class="containerTrendingGifos">
+                <div class="sliders"><img class="slider" id="slider1" src="imagenes/button-slider-left.svg" alt="sliderIzquierdo"></div>
+                <div class="primera-grilla" id="grilla1">
+                </div>
+                <div class="sliders"><img class="slider" id="slider2" src="imagenes/Button-Slider-right.svg" alt="sliderDerecho"></div>
+                </div>
+        </main>
+        <div id="seccionDos" class="seccion-dos">
+            <div class="container">    
+                <div class="divCamara">
+                        <img class="camara" id="camaraCrear" src="imagenes/camara.svg" alt="camara">
+                        <img class="luz" id="luzCrear" src="imagenes/Path 2.svg" alt="luz">
+                </div>
+                <div class="containerCrear" id="container-crear">
+                    <div class="containerBordes1">
+                        <div class="bordes1"></div>
+                        <div class="bordes2"></div>
+                    </div>
+                    <div id="divVideo"><video id="video"></video></div>
+                    <h2 class="titulo-crear" id="tituloCrear">Aquí podras</h2>
+                    <h2 class="titulo-crear2" id="tituloCrear2">crear tus propios <span>GIFOS</span></h2>
+                    <p id="parrafoCrear3">¡Crea tu GIFO en solo tres pasos!</p>
+                    <p id="parrafoCrear4">(sólo necesitas una cámara para grabar un video)</p>
+                    <h2 class="accesoCam" id="acceso_cam">¿Nos das acceso a tu camara?</h2>
+                    <p class="parrafoCrear1" id="parrafo_crear1">El acceso será valido solo</p>
+                    <p class="parrafoCrear2" id="parrafo_crear2">por el tiempo que se esté creando el GIFO</p>
+                    <div class="containerBordes2">
+                        <div class="bordes3"></div>
+                        <div class="bordes4"></div>
+                    </div>
+                </div>
+                <img class="cinta" id="cintaCrear" src="imagenes/pelicula.svg" alt="cinta">
+                <div></div>
+                <div class="listaCrear">
+                    <ul class="listaPasoapaso">
+                        <li><div id="pasoapaso1" class="pasoapaso">1</div></li>
+                        <li><div id="pasoapaso2" class="pasoapaso">2</div></li>
+                        <li><div id="pasoapaso3" class="pasoapaso">3</div></li>
+                    </ul>
+                </div>
+                <div><p id="repetir_captura" class="repetirCaptura">REPETIR CAPTURA</p>
+                    <div id="cronometro" class="cronometroCrear"></div>
+                </div>
+            </div>
+            <div class=rectangulo-crear id="rectanguloCrear"></div>
+            <div id="crearActions">
+                <a class="myButtonCrear" id="byButton-crear">COMENZAR</a>
+                <a class="myButtonCrear" id="byButton-grabar">GRABAR</a>
+                <a class="myButtonCrear" id="byButton-finalizar">FINALIZAR</a>
+                <a class="myButtonCrear" id="byButton-subir">SUBIR GIFO</a>
+            </div>
+        </div>
+        <footer>
+            <div class="final">
+                    <div id="linea-final" class="texto">Compartir en:</div>
+                    <div class="listaFinal">
+                        <a href=https://www.facebook.com><img id="facebook" src="imagenes/icon_facebook.svg" alt="facebook"></a>
+                        <a href=https://www.twitter.com><img id="twitter"  src="imagenes/icon-tw-normal.svg" alt="twitter"></a>
+                        <a href=https://www.instagram.com><img id="instagram"  src="imagenes/icon_instagram.svg" alt="instagram"></a>
+                    </div>
+                <p id="textoFinal" class="texto-final">© GIFOS 2020 All Rights Reserved</p>
+            </div>
+            <div id= "final" class="rectangulo"></div>
+        </footer>
+    <script src="https://kit.fontawesome.com/97609f6e35.js" crossorigin="anonymous"></script>
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+    <script src="javascript/texto.js"> </script> 
+    </div>  
+</body>
+</html>
