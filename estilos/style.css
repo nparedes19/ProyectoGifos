@@ -1550,6 +1550,8 @@ main{
 /*footer*/
 
 
+
+
 .final{
     height: 116px;
     width: 100%;
@@ -1557,7 +1559,12 @@ main{
     
 }
 
-
+.listaFinal {
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 100px;
+}
 
 .listaFinal a{
     margin-right: 20px;
@@ -1568,6 +1575,7 @@ main{
     font-family:'Roboto', sans-serif;
     margin-top: auto;
     margin-bottom: auto;
+    margin-left: 200px;
     
 }
 
@@ -1581,6 +1589,7 @@ main{
     font-family:'Roboto', sans-serif;
     margin-top: auto;
     margin-bottom: auto;
+    margin-left: 650px;
     
 
 }

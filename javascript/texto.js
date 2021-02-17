@@ -1,4 +1,3 @@
-
 /*cambiar modo oscuro-claro*/
 const btnGifos3 = document.getElementById("btn3")
 const btnGifos2 = document.getElementById("btn2") 
@@ -745,1556 +744,1568 @@ const searchGifs = async (query) => {
 const persistFavs =JSON.parse(window.localStorage.getItem("favorites"))
 let favs = []
 
-if (persistFavs.length > 0){
-  favs = persistFavs
-}
 
-if (favs.length < 1){
-  document.getElementById("boxFavVacio").style.display ="block"
-  document.getElementById("boxFavoritos").style.display="none"
-  document.getElementById("boxFavoritos2").style.display="none"
-  document.getElementById("boxFavoritos3").style.display="none"
-  document.getElementById("boxFavoritos4").style.display="none"
-  document.getElementById("btnVerMas").style.display="none"
-  document.getElementById("btnVerMas2").style.display="none"
-  document.getElementById("btnVerMas3").style.display="none"
-  document.getElementById("btnVerMas4").style.display="none"
-}
 
-let i = 0;
-while(i < persistFavs.length) {
-  let persistFav = persistFavs[i]
-  const aUrl = document.createElement("a")
-  const div = document.createElement("div")
-  const gif = document.createElement("img")
-  let corazonUndido = document.createElement("img")
-  let divCorazon = document.createElement("div")
-  let divHover = document.createElement("div")
-  let titleBuscarGif = document.createElement("p")
-  let userBuscarGif = document.createElement("p")
-  let corazon = document.createElement("img")
-  let expandir = document.createElement("img")
-  let descargar = document.createElement("img")
-  aUrl.setAttribute("href", persistFav.url)
-  aUrl.appendChild(descargar)
-  corazonUndido.classList.add("corazonUndidoFav")
-  corazonUndido.setAttribute("src","imagenes/icon-fav-active.svg")
-  div.classList.add("divGifBuscar")
-  divHover.classList.add("hoverGifsBuscar")
-  corazon.classList.add("btnHoverBuscar")
-  expandir.classList.add("btnHoverBuscar")
-  descargar.classList.add("btnHoverBuscar")
-  corazon.setAttribute("src" ,"imagenes/icon-fav-hover.svg")
-  expandir.setAttribute("src","imagenes/icon-max-normal.svg")
-  descargar.setAttribute("src","imagenes/icon-download.svg")
-  divCorazon.appendChild(corazonUndido)
-  divCorazon.appendChild(corazon)
-  corazon.setAttribute("id","corazonBusqueda")
-  userBuscarGif.textContent = persistFav.user
-  titleBuscarGif.textContent = persistFav.title
-  gif.classList.add("gifFavorito")
-  userBuscarGif.classList.add("userBuscarGif")
-  titleBuscarGif.classList.add("titleBuscarGif")
-  divHover.appendChild(divCorazon)
-  divHover.appendChild(expandir)
-  divHover.appendChild(aUrl)
-  divHover.appendChild(userBuscarGif)
-  divHover.appendChild(titleBuscarGif)
-  div.appendChild(gif)
-  div.appendChild(divHover) 
-  gif.setAttribute("src", persistFav.img)
-  document.getElementById("boxFavoritos").appendChild(div)
-  corazonUndido.addEventListener("click", () =>{
-    var eliminar = persistFav.id   
-    favs.splice(getIndice(eliminar),1)
-    function getIndice(eliminar){
-      var indice = -1
-      favs.filter(function(dato,i){
-        if(dato.id===eliminar){
-          indice=i
-        }
-      })
-      return indice
+
+if(persistFavs!==null){
+
+  console.log(persistFavs.length)
+  console.log(favs.length)
+
+    if (persistFavs.length > 0){
+      favs = persistFavs
     }
-    window-localStorage.setItem("favorites", JSON.stringify(favs)) 
-  })
 
-  descargar.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
-  descargar.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
-  expandir.addEventListener("mouseover", () => {expandir.src="imagenes/icon-max-hover.svg"})
-  expandir.addEventListener("mouseout", () => {expandir.src="imagenes/icon-max-normal.svg"})
-
-  gif.addEventListener("click" , () => {
-    corazonUndido.classList.remove("corazonUndidoFav")
-    corazonUndido.classList.remove("corazonUndido")
-        corazonUndido.classList.add("corazonUndidoExp")
-        let bodyExpandir = document.getElementById("expandir")
-        document.getElementById("todo").style.display = "none"
-        let equis = document.createElement("img")
-        let gifExp = document.createElement("img")
-        let containerExpandir = document.createElement("div")
-        let sliderExpIzq = document.createElement("img")
-        let divGifExp = document.createElement("div")
-        let sliderExpDer = document.createElement("img")
-        let divCorazon = document.createElement("div")
-        let corazonExp = document.createElement("img")
-        let descargarExp = document.createElement("img")
-        let userExp = document.createElement("p")
-        let titleExp = document.createElement("p")
-        let divUltimo = document.createElement("div")
-        divCorazon.classList.add("divCorazon")
-        divCorazon.appendChild(corazonExp)
-        divUltimo.classList.add("divUltimo")
-        equis.classList.add("equisExp")
-        gifExp.classList.add("gifExp")
-        containerExpandir.classList.add("containerExpandir")
-        sliderExpIzq.classList.add("sliderExpIzq")
-        divGifExp.classList.add("divGifExp")
-        sliderExpDer.classList.add("sliderExpDer")
-        corazonExp.classList.add("corazonExp")
-        descargarExp.classList.add("descargarExp")
-        userExp.classList.add("userExp")
-        titleExp.classList.add("titleExp")
-        gifExp.setAttribute("src",persistFav.img)
-        titleExp.textContent = persistFav.title
-        userExp.textContent = persistFav.user
-        equis.setAttribute("src", "imagenes/close.svg")
-        corazonExp.setAttribute("src", "imagenes/icon-fav.svg")
-        descargarExp.setAttribute("src", "imagenes/icon-download.svg")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
-        sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
-        bodyExpandir.appendChild(equis)
-        bodyExpandir.appendChild(containerExpandir)
-        containerExpandir.appendChild(sliderExpIzq)
-        containerExpandir.appendChild(divGifExp)
-        divGifExp.appendChild(gifExp)
-        containerExpandir.appendChild(sliderExpDer)
-        let divParrafos = document.createElement("div")
-        divParrafos.appendChild(userExp)
-        divParrafos.appendChild(titleExp)
-        let divBotones = document.createElement("div")
-        divBotones.classList.add("divBotones")
-        divBotones.appendChild(divCorazon)
-        divUltimo.appendChild(divParrafos)
-        divUltimo.appendChild(divBotones)
-        bodyExpandir.appendChild(divUltimo)
-        descargarExp.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
-        descargarExp.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
-        corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-        corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-
-        /*funionalidad de los botones*/
-
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href",persistFav.url)
-        divBotones.appendChild(aUrl)
-        console.log(persistFav)
-         /*mostrar gifs en favoritos*/
-
-        const isExist = favs.filter(fav => fav.id === persistFav.id)
-        var eliminar = persistFav.id
-    
-        console.log(isExist)
-        if (isExist.length > 0){
-          corazonUndido.classList.remove("corazonUndido")
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
-          divCorazon.appendChild(corazonUndido)
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonUndido.style.display="block"
-          corazonUndido.classList.remove("corazonUndidoTrend")
-          corazonUndido.setAttribute("id","corazonUndido_Exp")
-          corazonUndido.addEventListener("click", () =>{
-            
-            favs.splice(getIndice(eliminar),1)
-            function getIndice(eliminar){
-              var indice = -1
-              favs.filter(function(dato,i){
-                if(dato.id===eliminar){
-                  indice=i
-                }
-              })
-              return indice
-            }
-            window-localStorage.setItem("favorites", JSON.stringify(favs)) 
-          })
-        }else{
-          corazonUndido.classList.remove("corazonUndido")
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonExp.setAttribute("src","imagenes/icon-fav.svg")
-          corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-          corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-          corazonExp.addEventListener("click", e => {
-            corazonUndido.style.display="block"
-            corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
-            divCorazon.appendChild(corazonUndido)
-            corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-            corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-            corazonUndido.addEventListener("click", () =>{
-              corazonExp.setAttribute("src","imagenes/icon-fav.svg")
-              corazonUndido.style.display="none"
-              corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-              corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-              favs.splice(getIndice(eliminar),1)
-              function getIndice(eliminar){
-                var indice = -1
-                favs.filter(function(dato,i){
-                  if(dato.id===eliminar){
-                    indice=i
-                  }
-                })
-                return indice
-              }
-              window-localStorage.setItem("favorites", JSON.stringify(favs)) 
-            })
-            addFav(persistFav)
-          })
-        }
-
-
-       /*modo nocturno*/
-       if (modoNocturno===true){
-        userExp.classList.add("userExp-nocturno")
-        titleExp.classList.add("titleExp-nocturno")
-        userExp.classList.remove("userExp")
-        titleExp.classList.remove("titleExp")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left-md-noct.svg")
-        sliderExpDer.setAttribute("src","imagenes/button-slider-right-md-noct.svg")
-        equis.setAttribute("src", "imagenes/close-modo-noct.svg")
-      }else{
-        userExp.classList.add("userExp")
-        titleExp.classList.add("titleExp")
-        userExp.classList.remove("userExp-nocturno")
-        titleExp.classList.remove("titleExp-nocturno")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
-        sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
-        equis.setAttribute("src", "imagenes/close.svg")
-        }
-        
-
-        /*cerrar gif expandido*/
-
-        equis.addEventListener("click", e => {
-          document.getElementById("todo").style.display = "block"
-          document.getElementById("expandir").innerHTML = ""
-      })
-  })
-  
-  expandir.addEventListener("click" , () => {
-    corazonUndido.classList.remove("corazonUndidoFav")
-    corazonUndido.classList.remove("corazonUndido")
-        corazonUndido.classList.add("corazonUndidoExp")
-        let bodyExpandir = document.getElementById("expandir")
-        document.getElementById("todo").style.display = "none"
-        let equis = document.createElement("img")
-        let gifExp = document.createElement("img")
-        let containerExpandir = document.createElement("div")
-        let sliderExpIzq = document.createElement("img")
-        let divGifExp = document.createElement("div")
-        let sliderExpDer = document.createElement("img")
-        let divCorazon = document.createElement("div")
-        let corazonExp = document.createElement("img")
-        let descargarExp = document.createElement("img")
-        let userExp = document.createElement("p")
-        let titleExp = document.createElement("p")
-        let divUltimo = document.createElement("div")
-        divCorazon.classList.add("divCorazon")
-        divCorazon.appendChild(corazonExp)
-        divUltimo.classList.add("divUltimo")
-        equis.classList.add("equisExp")
-        gifExp.classList.add("gifExp")
-        containerExpandir.classList.add("containerExpandir")
-        sliderExpIzq.classList.add("sliderExpIzq")
-        divGifExp.classList.add("divGifExp")
-        sliderExpDer.classList.add("sliderExpDer")
-        corazonExp.classList.add("corazonExp")
-        descargarExp.classList.add("descargarExp")
-        userExp.classList.add("userExp")
-        titleExp.classList.add("titleExp")
-        gifExp.setAttribute("src",persistFav.img)
-        titleExp.textContent = persistFav.title
-        userExp.textContent = persistFav.user
-        equis.setAttribute("src", "imagenes/close.svg")
-        corazonExp.setAttribute("src", "imagenes/icon-fav.svg")
-        descargarExp.setAttribute("src", "imagenes/icon-download.svg")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
-        sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
-        bodyExpandir.appendChild(equis)
-        bodyExpandir.appendChild(containerExpandir)
-        containerExpandir.appendChild(sliderExpIzq)
-        containerExpandir.appendChild(divGifExp)
-        divGifExp.appendChild(gifExp)
-        containerExpandir.appendChild(sliderExpDer)
-        let divParrafos = document.createElement("div")
-        divParrafos.appendChild(userExp)
-        divParrafos.appendChild(titleExp)
-        let divBotones = document.createElement("div")
-        divBotones.classList.add("divBotones")
-        divBotones.appendChild(divCorazon)
-        divUltimo.appendChild(divParrafos)
-        divUltimo.appendChild(divBotones)
-        bodyExpandir.appendChild(divUltimo)
-        descargarExp.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
-        descargarExp.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
-        corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-        corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-
-        /*funionalidad de los botones*/
-
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href",persistFav.url)
-        divBotones.appendChild(aUrl)
-        console.log(persistFav)
-         /*mostrar gifs en favoritos*/
-
-        const isExist = favs.filter(fav => fav.id === persistFav.id)
-        var eliminar = persistFav.id
-    
-        console.log(isExist)
-        if (isExist.length > 0){
-          corazonUndido.classList.remove("corazonUndido")
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
-          divCorazon.appendChild(corazonUndido)
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonUndido.style.display="block"
-          corazonUndido.classList.remove("corazonUndidoTrend")
-          corazonUndido.setAttribute("id","corazonUndido_Exp")
-          corazonUndido.addEventListener("click", () =>{
-            
-            favs.splice(getIndice(eliminar),1)
-            function getIndice(eliminar){
-              var indice = -1
-              favs.filter(function(dato,i){
-                if(dato.id===eliminar){
-                  indice=i
-                }
-              })
-              return indice
-            }
-            window-localStorage.setItem("favorites", JSON.stringify(favs)) 
-          })
-        }else{
-          corazonUndido.classList.remove("corazonUndido")
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonExp.setAttribute("src","imagenes/icon-fav.svg")
-          corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-          corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-          corazonExp.addEventListener("click", e => {
-            corazonUndido.style.display="block"
-            corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
-            divCorazon.appendChild(corazonUndido)
-            corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-            corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-            corazonUndido.addEventListener("click", () =>{
-              corazonExp.setAttribute("src","imagenes/icon-fav.svg")
-              corazonUndido.style.display="none"
-              corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-              corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-              favs.splice(getIndice(eliminar),1)
-              function getIndice(eliminar){
-                var indice = -1
-                favs.filter(function(dato,i){
-                  if(dato.id===eliminar){
-                    indice=i
-                  }
-                })
-                return indice
-              }
-              window-localStorage.setItem("favorites", JSON.stringify(favs)) 
-            })
-            addFav(persistFav)
-          })
-        }
-
-
-       /*modo nocturno*/
-       if (modoNocturno===true){
-        userExp.classList.add("userExp-nocturno")
-        titleExp.classList.add("titleExp-nocturno")
-        userExp.classList.remove("userExp")
-        titleExp.classList.remove("titleExp")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left-md-noct.svg")
-        sliderExpDer.setAttribute("src","imagenes/button-slider-right-md-noct.svg")
-        equis.setAttribute("src", "imagenes/close-modo-noct.svg")
-      }else{
-        userExp.classList.add("userExp")
-        titleExp.classList.add("titleExp")
-        userExp.classList.remove("userExp-nocturno")
-        titleExp.classList.remove("titleExp-nocturno")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
-        sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
-        equis.setAttribute("src", "imagenes/close.svg")
-        }
-        
-
-        /*cerrar gif expandido*/
-
-        equis.addEventListener("click", e => {
-          document.getElementById("todo").style.display = "block"
-          document.getElementById("expandir").innerHTML = ""
-      })
-  })
-
-
-    if (i == 11){
-        break;
-    } 
-    i++;
-}
-
-
-while(i < persistFavs.length) {
-  let persistFav = persistFavs[i]
-  const aUrl = document.createElement("a")
-  const div = document.createElement("div")
-  const gif = document.createElement("img")
-  let corazonUndido = document.createElement("img")
-  let divCorazon = document.createElement("div")
-  let divHover = document.createElement("div")
-  let titleBuscarGif = document.createElement("p")
-  let userBuscarGif = document.createElement("p")
-  let corazon = document.createElement("img")
-  let expandir = document.createElement("img")
-  let descargar = document.createElement("img")
-  aUrl.setAttribute("href", persistFav.url)
-  aUrl.appendChild(descargar)
-  corazonUndido.classList.add("corazonUndidoFav")
-  corazonUndido.setAttribute("src","imagenes/icon-fav-active.svg")
-  div.classList.add("divGifBuscar")
-  divHover.classList.add("hoverGifsBuscar")
-  corazon.classList.add("btnHoverBuscar")
-  expandir.classList.add("btnHoverBuscar")
-  descargar.classList.add("btnHoverBuscar")
-  corazon.setAttribute("src" ,"imagenes/icon-fav-hover.svg")
-  expandir.setAttribute("src","imagenes/icon-max-normal.svg")
-  descargar.setAttribute("src","imagenes/icon-download.svg")
-  divCorazon.appendChild(corazonUndido)
-  divCorazon.appendChild(corazon)
-  corazon.setAttribute("id","corazonBusqueda")
-  userBuscarGif.textContent = persistFav.user
-  titleBuscarGif.textContent = persistFav.title
-  gif.classList.add("gifFavorito")
-  userBuscarGif.classList.add("userBuscarGif")
-  titleBuscarGif.classList.add("titleBuscarGif")
-  divHover.appendChild(divCorazon)
-  divHover.appendChild(expandir)
-  divHover.appendChild(aUrl)
-  divHover.appendChild(userBuscarGif)
-  divHover.appendChild(titleBuscarGif)
-  div.appendChild(gif)
-  div.appendChild(divHover) 
-  gif.setAttribute("src", persistFav.img)
-  document.getElementById("boxFavoritos2").appendChild(div)
-  corazonUndido.addEventListener("click", () =>{
-    var eliminar = persistFav.id   
-    favs.splice(getIndice(eliminar),1)
-    function getIndice(eliminar){
-      var indice = -1
-      favs.filter(function(dato,i){
-        if(dato.id===eliminar){
-          indice=i
-        }
-      })
-      return indice
+    if (persistFavs.length < 1){
+      
+      document.getElementById("boxFavVacio").style.display ="block"
+      document.getElementById("boxFavoritos").style.display="none"
+      document.getElementById("boxFavoritos2").style.display="none"
+      document.getElementById("boxFavoritos3").style.display="none"
+      document.getElementById("boxFavoritos4").style.display="none"
+      document.getElementById("btnVerMas").style.display="none"
+      document.getElementById("btnVerMas2").style.display="none"
+      document.getElementById("btnVerMas3").style.display="none"
+      document.getElementById("btnVerMas4").style.display="none"
+      
     }
-    window-localStorage.setItem("favorites", JSON.stringify(favs)) 
-  })
 
-  descargar.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
-  descargar.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
-  expandir.addEventListener("mouseover", () => {expandir.src="imagenes/icon-max-hover.svg"})
-  expandir.addEventListener("mouseout", () => {expandir.src="imagenes/icon-max-normal.svg"})
-
-  gif.addEventListener("click" , () => {
-    corazonUndido.classList.remove("corazonUndidoFav")
-    corazonUndido.classList.remove("corazonUndido")
-        corazonUndido.classList.add("corazonUndidoExp")
-        let bodyExpandir = document.getElementById("expandir")
-        document.getElementById("todo").style.display = "none"
-        let equis = document.createElement("img")
-        let gifExp = document.createElement("img")
-        let containerExpandir = document.createElement("div")
-        let sliderExpIzq = document.createElement("img")
-        let divGifExp = document.createElement("div")
-        let sliderExpDer = document.createElement("img")
-        let divCorazon = document.createElement("div")
-        let corazonExp = document.createElement("img")
-        let descargarExp = document.createElement("img")
-        let userExp = document.createElement("p")
-        let titleExp = document.createElement("p")
-        let divUltimo = document.createElement("div")
-        divCorazon.classList.add("divCorazon")
-        divCorazon.appendChild(corazonExp)
-        divUltimo.classList.add("divUltimo")
-        equis.classList.add("equisExp")
-        gifExp.classList.add("gifExp")
-        containerExpandir.classList.add("containerExpandir")
-        sliderExpIzq.classList.add("sliderExpIzq")
-        divGifExp.classList.add("divGifExp")
-        sliderExpDer.classList.add("sliderExpDer")
-        corazonExp.classList.add("corazonExp")
-        descargarExp.classList.add("descargarExp")
-        userExp.classList.add("userExp")
-        titleExp.classList.add("titleExp")
-        gifExp.setAttribute("src",persistFav.img)
-        titleExp.textContent = persistFav.title
-        userExp.textContent = persistFav.user
-        equis.setAttribute("src", "imagenes/close.svg")
-        corazonExp.setAttribute("src", "imagenes/icon-fav.svg")
-        descargarExp.setAttribute("src", "imagenes/icon-download.svg")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
-        sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
-        bodyExpandir.appendChild(equis)
-        bodyExpandir.appendChild(containerExpandir)
-        containerExpandir.appendChild(sliderExpIzq)
-        containerExpandir.appendChild(divGifExp)
-        divGifExp.appendChild(gifExp)
-        containerExpandir.appendChild(sliderExpDer)
-        let divParrafos = document.createElement("div")
-        divParrafos.appendChild(userExp)
-        divParrafos.appendChild(titleExp)
-        let divBotones = document.createElement("div")
-        divBotones.classList.add("divBotones")
-        divBotones.appendChild(divCorazon)
-        divUltimo.appendChild(divParrafos)
-        divUltimo.appendChild(divBotones)
-        bodyExpandir.appendChild(divUltimo)
-        descargarExp.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
-        descargarExp.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
-        corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-        corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-
-        /*funionalidad de los botones*/
-
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href",persistFav.url)
-        divBotones.appendChild(aUrl)
-        console.log(persistFav)
-         /*mostrar gifs en favoritos*/
-
-        const isExist = favs.filter(fav => fav.id === persistFav.id)
-        var eliminar = persistFav.id
-    
-        console.log(isExist)
-        if (isExist.length > 0){
-          corazonUndido.classList.remove("corazonUndido")
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
-          divCorazon.appendChild(corazonUndido)
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonUndido.style.display="block"
-          corazonUndido.classList.remove("corazonUndidoTrend")
-          corazonUndido.setAttribute("id","corazonUndido_Exp")
-          corazonUndido.addEventListener("click", () =>{
-            
-            favs.splice(getIndice(eliminar),1)
-            function getIndice(eliminar){
-              var indice = -1
-              favs.filter(function(dato,i){
-                if(dato.id===eliminar){
-                  indice=i
-                }
-              })
-              return indice
+    let i = 0;
+    while(i < persistFavs.length) {
+      let persistFav = persistFavs[i]
+      const aUrl = document.createElement("a")
+      const div = document.createElement("div")
+      const gif = document.createElement("img")
+      let corazonUndido = document.createElement("img")
+      let divCorazon = document.createElement("div")
+      let divHover = document.createElement("div")
+      let titleBuscarGif = document.createElement("p")
+      let userBuscarGif = document.createElement("p")
+      let corazon = document.createElement("img")
+      let expandir = document.createElement("img")
+      let descargar = document.createElement("img")
+      aUrl.setAttribute("href", persistFav.url)
+      aUrl.appendChild(descargar)
+      corazonUndido.classList.add("corazonUndidoFav")
+      corazonUndido.setAttribute("src","imagenes/icon-fav-active.svg")
+      div.classList.add("divGifBuscar")
+      divHover.classList.add("hoverGifsBuscar")
+      corazon.classList.add("btnHoverBuscar")
+      expandir.classList.add("btnHoverBuscar")
+      descargar.classList.add("btnHoverBuscar")
+      corazon.setAttribute("src" ,"imagenes/icon-fav-hover.svg")
+      expandir.setAttribute("src","imagenes/icon-max-normal.svg")
+      descargar.setAttribute("src","imagenes/icon-download.svg")
+      divCorazon.appendChild(corazonUndido)
+      divCorazon.appendChild(corazon)
+      corazon.setAttribute("id","corazonBusqueda")
+      userBuscarGif.textContent = persistFav.user
+      titleBuscarGif.textContent = persistFav.title
+      gif.classList.add("gifFavorito")
+      userBuscarGif.classList.add("userBuscarGif")
+      titleBuscarGif.classList.add("titleBuscarGif")
+      divHover.appendChild(divCorazon)
+      divHover.appendChild(expandir)
+      divHover.appendChild(aUrl)
+      divHover.appendChild(userBuscarGif)
+      divHover.appendChild(titleBuscarGif)
+      div.appendChild(gif)
+      div.appendChild(divHover) 
+      gif.setAttribute("src", persistFav.img)
+      document.getElementById("boxFavoritos").appendChild(div)
+      corazonUndido.addEventListener("click", () =>{
+        var eliminar = persistFav.id   
+        favs.splice(getIndice(eliminar),1)
+        function getIndice(eliminar){
+          var indice = -1
+          favs.filter(function(dato,i){
+            if(dato.id===eliminar){
+              indice=i
             }
-            window-localStorage.setItem("favorites", JSON.stringify(favs)) 
           })
-        }else{
-          corazonUndido.classList.remove("corazonUndido")
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonExp.setAttribute("src","imagenes/icon-fav.svg")
-          corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-          corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-          corazonExp.addEventListener("click", e => {
-            corazonUndido.style.display="block"
-            corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
-            divCorazon.appendChild(corazonUndido)
+          return indice
+        }
+        window-localStorage.setItem("favorites", JSON.stringify(favs)) 
+      })
+
+      descargar.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
+      descargar.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
+      expandir.addEventListener("mouseover", () => {expandir.src="imagenes/icon-max-hover.svg"})
+      expandir.addEventListener("mouseout", () => {expandir.src="imagenes/icon-max-normal.svg"})
+
+      gif.addEventListener("click" , () => {
+        corazonUndido.classList.remove("corazonUndidoFav")
+        corazonUndido.classList.remove("corazonUndido")
+            corazonUndido.classList.add("corazonUndidoExp")
+            let bodyExpandir = document.getElementById("expandir")
+            document.getElementById("todo").style.display = "none"
+            let equis = document.createElement("img")
+            let gifExp = document.createElement("img")
+            let containerExpandir = document.createElement("div")
+            let sliderExpIzq = document.createElement("img")
+            let divGifExp = document.createElement("div")
+            let sliderExpDer = document.createElement("img")
+            let divCorazon = document.createElement("div")
+            let corazonExp = document.createElement("img")
+            let descargarExp = document.createElement("img")
+            let userExp = document.createElement("p")
+            let titleExp = document.createElement("p")
+            let divUltimo = document.createElement("div")
+            divCorazon.classList.add("divCorazon")
+            divCorazon.appendChild(corazonExp)
+            divUltimo.classList.add("divUltimo")
+            equis.classList.add("equisExp")
+            gifExp.classList.add("gifExp")
+            containerExpandir.classList.add("containerExpandir")
+            sliderExpIzq.classList.add("sliderExpIzq")
+            divGifExp.classList.add("divGifExp")
+            sliderExpDer.classList.add("sliderExpDer")
+            corazonExp.classList.add("corazonExp")
+            descargarExp.classList.add("descargarExp")
+            userExp.classList.add("userExp")
+            titleExp.classList.add("titleExp")
+            gifExp.setAttribute("src",persistFav.img)
+            titleExp.textContent = persistFav.title
+            userExp.textContent = persistFav.user
+            equis.setAttribute("src", "imagenes/close.svg")
+            corazonExp.setAttribute("src", "imagenes/icon-fav.svg")
+            descargarExp.setAttribute("src", "imagenes/icon-download.svg")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
+            sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
+            bodyExpandir.appendChild(equis)
+            bodyExpandir.appendChild(containerExpandir)
+            containerExpandir.appendChild(sliderExpIzq)
+            containerExpandir.appendChild(divGifExp)
+            divGifExp.appendChild(gifExp)
+            containerExpandir.appendChild(sliderExpDer)
+            let divParrafos = document.createElement("div")
+            divParrafos.appendChild(userExp)
+            divParrafos.appendChild(titleExp)
+            let divBotones = document.createElement("div")
+            divBotones.classList.add("divBotones")
+            divBotones.appendChild(divCorazon)
+            divUltimo.appendChild(divParrafos)
+            divUltimo.appendChild(divBotones)
+            bodyExpandir.appendChild(divUltimo)
+            descargarExp.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
+            descargarExp.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
             corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-            corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-            corazonUndido.addEventListener("click", () =>{
+            corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+
+            /*funionalidad de los botones*/
+
+            let aUrl = document.createElement("a")
+            aUrl.appendChild(descargarExp)
+            aUrl.setAttribute("href",persistFav.url)
+            divBotones.appendChild(aUrl)
+            console.log(persistFav)
+            /*mostrar gifs en favoritos*/
+
+            const isExist = favs.filter(fav => fav.id === persistFav.id)
+            var eliminar = persistFav.id
+        
+            console.log(isExist)
+            if (isExist.length > 0){
+              corazonUndido.classList.remove("corazonUndido")
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
+              divCorazon.appendChild(corazonUndido)
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonUndido.style.display="block"
+              corazonUndido.classList.remove("corazonUndidoTrend")
+              corazonUndido.setAttribute("id","corazonUndido_Exp")
+              corazonUndido.addEventListener("click", () =>{
+                
+                favs.splice(getIndice(eliminar),1)
+                function getIndice(eliminar){
+                  var indice = -1
+                  favs.filter(function(dato,i){
+                    if(dato.id===eliminar){
+                      indice=i
+                    }
+                  })
+                  return indice
+                }
+                window-localStorage.setItem("favorites", JSON.stringify(favs)) 
+              })
+            }else{
+              corazonUndido.classList.remove("corazonUndido")
+              corazonUndido.classList.add("corazonUndidoExp")
               corazonExp.setAttribute("src","imagenes/icon-fav.svg")
-              corazonUndido.style.display="none"
               corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
               corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-              favs.splice(getIndice(eliminar),1)
-              function getIndice(eliminar){
-                var indice = -1
-                favs.filter(function(dato,i){
-                  if(dato.id===eliminar){
-                    indice=i
+              corazonExp.addEventListener("click", e => {
+                corazonUndido.style.display="block"
+                corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
+                divCorazon.appendChild(corazonUndido)
+                corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                corazonUndido.addEventListener("click", () =>{
+                  corazonExp.setAttribute("src","imagenes/icon-fav.svg")
+                  corazonUndido.style.display="none"
+                  corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                  corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+                  favs.splice(getIndice(eliminar),1)
+                  function getIndice(eliminar){
+                    var indice = -1
+                    favs.filter(function(dato,i){
+                      if(dato.id===eliminar){
+                        indice=i
+                      }
+                    })
+                    return indice
                   }
+                  window-localStorage.setItem("favorites", JSON.stringify(favs)) 
                 })
-                return indice
-              }
-              window-localStorage.setItem("favorites", JSON.stringify(favs)) 
-            })
-            addFav(persistFav)
-          })
-        }
-
-
-       /*modo nocturno*/
-       if (modoNocturno===true){
-        userExp.classList.add("userExp-nocturno")
-        titleExp.classList.add("titleExp-nocturno")
-        userExp.classList.remove("userExp")
-        titleExp.classList.remove("titleExp")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left-md-noct.svg")
-        sliderExpDer.setAttribute("src","imagenes/button-slider-right-md-noct.svg")
-        equis.setAttribute("src", "imagenes/close-modo-noct.svg")
-      }else{
-        userExp.classList.add("userExp")
-        titleExp.classList.add("titleExp")
-        userExp.classList.remove("userExp-nocturno")
-        titleExp.classList.remove("titleExp-nocturno")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
-        sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
-        equis.setAttribute("src", "imagenes/close.svg")
-        }
-        
-
-        /*cerrar gif expandido*/
-
-        equis.addEventListener("click", e => {
-          document.getElementById("todo").style.display = "block"
-          document.getElementById("expandir").innerHTML = ""
-      })
-  })
-  
-  expandir.addEventListener("click" , () => {
-    corazonUndido.classList.remove("corazonUndidoFav")
-    corazonUndido.classList.remove("corazonUndido")
-        corazonUndido.classList.add("corazonUndidoExp")
-        let bodyExpandir = document.getElementById("expandir")
-        document.getElementById("todo").style.display = "none"
-        let equis = document.createElement("img")
-        let gifExp = document.createElement("img")
-        let containerExpandir = document.createElement("div")
-        let sliderExpIzq = document.createElement("img")
-        let divGifExp = document.createElement("div")
-        let sliderExpDer = document.createElement("img")
-        let divCorazon = document.createElement("div")
-        let corazonExp = document.createElement("img")
-        let descargarExp = document.createElement("img")
-        let userExp = document.createElement("p")
-        let titleExp = document.createElement("p")
-        let divUltimo = document.createElement("div")
-        divCorazon.classList.add("divCorazon")
-        divCorazon.appendChild(corazonExp)
-        divUltimo.classList.add("divUltimo")
-        equis.classList.add("equisExp")
-        gifExp.classList.add("gifExp")
-        containerExpandir.classList.add("containerExpandir")
-        sliderExpIzq.classList.add("sliderExpIzq")
-        divGifExp.classList.add("divGifExp")
-        sliderExpDer.classList.add("sliderExpDer")
-        corazonExp.classList.add("corazonExp")
-        descargarExp.classList.add("descargarExp")
-        userExp.classList.add("userExp")
-        titleExp.classList.add("titleExp")
-        gifExp.setAttribute("src",persistFav.img)
-        titleExp.textContent = persistFav.title
-        userExp.textContent = persistFav.user
-        equis.setAttribute("src", "imagenes/close.svg")
-        corazonExp.setAttribute("src", "imagenes/icon-fav.svg")
-        descargarExp.setAttribute("src", "imagenes/icon-download.svg")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
-        sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
-        bodyExpandir.appendChild(equis)
-        bodyExpandir.appendChild(containerExpandir)
-        containerExpandir.appendChild(sliderExpIzq)
-        containerExpandir.appendChild(divGifExp)
-        divGifExp.appendChild(gifExp)
-        containerExpandir.appendChild(sliderExpDer)
-        let divParrafos = document.createElement("div")
-        divParrafos.appendChild(userExp)
-        divParrafos.appendChild(titleExp)
-        let divBotones = document.createElement("div")
-        divBotones.classList.add("divBotones")
-        divBotones.appendChild(divCorazon)
-        divUltimo.appendChild(divParrafos)
-        divUltimo.appendChild(divBotones)
-        bodyExpandir.appendChild(divUltimo)
-        descargarExp.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
-        descargarExp.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
-        corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-        corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-
-        /*funionalidad de los botones*/
-
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href",persistFav.url)
-        divBotones.appendChild(aUrl)
-        console.log(persistFav)
-         /*mostrar gifs en favoritos*/
-
-        const isExist = favs.filter(fav => fav.id === persistFav.id)
-        var eliminar = persistFav.id
-    
-        console.log(isExist)
-        if (isExist.length > 0){
-          corazonUndido.classList.remove("corazonUndido")
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
-          divCorazon.appendChild(corazonUndido)
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonUndido.style.display="block"
-          corazonUndido.classList.remove("corazonUndidoTrend")
-          corazonUndido.setAttribute("id","corazonUndido_Exp")
-          corazonUndido.addEventListener("click", () =>{
-            
-            favs.splice(getIndice(eliminar),1)
-            function getIndice(eliminar){
-              var indice = -1
-              favs.filter(function(dato,i){
-                if(dato.id===eliminar){
-                  indice=i
-                }
+                addFav(persistFav)
               })
-              return indice
             }
-            window-localStorage.setItem("favorites", JSON.stringify(favs)) 
+
+
+          /*modo nocturno*/
+          if (modoNocturno===true){
+            userExp.classList.add("userExp-nocturno")
+            titleExp.classList.add("titleExp-nocturno")
+            userExp.classList.remove("userExp")
+            titleExp.classList.remove("titleExp")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left-md-noct.svg")
+            sliderExpDer.setAttribute("src","imagenes/button-slider-right-md-noct.svg")
+            equis.setAttribute("src", "imagenes/close-modo-noct.svg")
+          }else{
+            userExp.classList.add("userExp")
+            titleExp.classList.add("titleExp")
+            userExp.classList.remove("userExp-nocturno")
+            titleExp.classList.remove("titleExp-nocturno")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
+            sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
+            equis.setAttribute("src", "imagenes/close.svg")
+            }
+            
+
+            /*cerrar gif expandido*/
+
+            equis.addEventListener("click", e => {
+              document.getElementById("todo").style.display = "block"
+              document.getElementById("expandir").innerHTML = ""
           })
-        }else{
-          corazonUndido.classList.remove("corazonUndido")
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonExp.setAttribute("src","imagenes/icon-fav.svg")
-          corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-          corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-          corazonExp.addEventListener("click", e => {
-            corazonUndido.style.display="block"
-            corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
-            divCorazon.appendChild(corazonUndido)
+      })
+      
+      expandir.addEventListener("click" , () => {
+        corazonUndido.classList.remove("corazonUndidoFav")
+        corazonUndido.classList.remove("corazonUndido")
+            corazonUndido.classList.add("corazonUndidoExp")
+            let bodyExpandir = document.getElementById("expandir")
+            document.getElementById("todo").style.display = "none"
+            let equis = document.createElement("img")
+            let gifExp = document.createElement("img")
+            let containerExpandir = document.createElement("div")
+            let sliderExpIzq = document.createElement("img")
+            let divGifExp = document.createElement("div")
+            let sliderExpDer = document.createElement("img")
+            let divCorazon = document.createElement("div")
+            let corazonExp = document.createElement("img")
+            let descargarExp = document.createElement("img")
+            let userExp = document.createElement("p")
+            let titleExp = document.createElement("p")
+            let divUltimo = document.createElement("div")
+            divCorazon.classList.add("divCorazon")
+            divCorazon.appendChild(corazonExp)
+            divUltimo.classList.add("divUltimo")
+            equis.classList.add("equisExp")
+            gifExp.classList.add("gifExp")
+            containerExpandir.classList.add("containerExpandir")
+            sliderExpIzq.classList.add("sliderExpIzq")
+            divGifExp.classList.add("divGifExp")
+            sliderExpDer.classList.add("sliderExpDer")
+            corazonExp.classList.add("corazonExp")
+            descargarExp.classList.add("descargarExp")
+            userExp.classList.add("userExp")
+            titleExp.classList.add("titleExp")
+            gifExp.setAttribute("src",persistFav.img)
+            titleExp.textContent = persistFav.title
+            userExp.textContent = persistFav.user
+            equis.setAttribute("src", "imagenes/close.svg")
+            corazonExp.setAttribute("src", "imagenes/icon-fav.svg")
+            descargarExp.setAttribute("src", "imagenes/icon-download.svg")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
+            sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
+            bodyExpandir.appendChild(equis)
+            bodyExpandir.appendChild(containerExpandir)
+            containerExpandir.appendChild(sliderExpIzq)
+            containerExpandir.appendChild(divGifExp)
+            divGifExp.appendChild(gifExp)
+            containerExpandir.appendChild(sliderExpDer)
+            let divParrafos = document.createElement("div")
+            divParrafos.appendChild(userExp)
+            divParrafos.appendChild(titleExp)
+            let divBotones = document.createElement("div")
+            divBotones.classList.add("divBotones")
+            divBotones.appendChild(divCorazon)
+            divUltimo.appendChild(divParrafos)
+            divUltimo.appendChild(divBotones)
+            bodyExpandir.appendChild(divUltimo)
+            descargarExp.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
+            descargarExp.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
             corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-            corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-            corazonUndido.addEventListener("click", () =>{
+            corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+
+            /*funionalidad de los botones*/
+
+            let aUrl = document.createElement("a")
+            aUrl.appendChild(descargarExp)
+            aUrl.setAttribute("href",persistFav.url)
+            divBotones.appendChild(aUrl)
+            console.log(persistFav)
+            /*mostrar gifs en favoritos*/
+
+            const isExist = favs.filter(fav => fav.id === persistFav.id)
+            var eliminar = persistFav.id
+        
+            console.log(isExist)
+            if (isExist.length > 0){
+              corazonUndido.classList.remove("corazonUndido")
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
+              divCorazon.appendChild(corazonUndido)
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonUndido.style.display="block"
+              corazonUndido.classList.remove("corazonUndidoTrend")
+              corazonUndido.setAttribute("id","corazonUndido_Exp")
+              corazonUndido.addEventListener("click", () =>{
+                
+                favs.splice(getIndice(eliminar),1)
+                function getIndice(eliminar){
+                  var indice = -1
+                  favs.filter(function(dato,i){
+                    if(dato.id===eliminar){
+                      indice=i
+                    }
+                  })
+                  return indice
+                }
+                window-localStorage.setItem("favorites", JSON.stringify(favs)) 
+              })
+            }else{
+              corazonUndido.classList.remove("corazonUndido")
+              corazonUndido.classList.add("corazonUndidoExp")
               corazonExp.setAttribute("src","imagenes/icon-fav.svg")
-              corazonUndido.style.display="none"
               corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
               corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-              favs.splice(getIndice(eliminar),1)
-              function getIndice(eliminar){
-                var indice = -1
-                favs.filter(function(dato,i){
-                  if(dato.id===eliminar){
-                    indice=i
+              corazonExp.addEventListener("click", e => {
+                corazonUndido.style.display="block"
+                corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
+                divCorazon.appendChild(corazonUndido)
+                corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                corazonUndido.addEventListener("click", () =>{
+                  corazonExp.setAttribute("src","imagenes/icon-fav.svg")
+                  corazonUndido.style.display="none"
+                  corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                  corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+                  favs.splice(getIndice(eliminar),1)
+                  function getIndice(eliminar){
+                    var indice = -1
+                    favs.filter(function(dato,i){
+                      if(dato.id===eliminar){
+                        indice=i
+                      }
+                    })
+                    return indice
                   }
+                  window-localStorage.setItem("favorites", JSON.stringify(favs)) 
                 })
-                return indice
-              }
-              window-localStorage.setItem("favorites", JSON.stringify(favs)) 
-            })
-            addFav(persistFav)
+                addFav(persistFav)
+              })
+            }
+
+
+          /*modo nocturno*/
+          if (modoNocturno===true){
+            userExp.classList.add("userExp-nocturno")
+            titleExp.classList.add("titleExp-nocturno")
+            userExp.classList.remove("userExp")
+            titleExp.classList.remove("titleExp")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left-md-noct.svg")
+            sliderExpDer.setAttribute("src","imagenes/button-slider-right-md-noct.svg")
+            equis.setAttribute("src", "imagenes/close-modo-noct.svg")
+          }else{
+            userExp.classList.add("userExp")
+            titleExp.classList.add("titleExp")
+            userExp.classList.remove("userExp-nocturno")
+            titleExp.classList.remove("titleExp-nocturno")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
+            sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
+            equis.setAttribute("src", "imagenes/close.svg")
+            }
+            
+
+            /*cerrar gif expandido*/
+
+            equis.addEventListener("click", e => {
+              document.getElementById("todo").style.display = "block"
+              document.getElementById("expandir").innerHTML = ""
           })
-        }
-
-
-       /*modo nocturno*/
-       if (modoNocturno===true){
-        userExp.classList.add("userExp-nocturno")
-        titleExp.classList.add("titleExp-nocturno")
-        userExp.classList.remove("userExp")
-        titleExp.classList.remove("titleExp")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left-md-noct.svg")
-        sliderExpDer.setAttribute("src","imagenes/button-slider-right-md-noct.svg")
-        equis.setAttribute("src", "imagenes/close-modo-noct.svg")
-      }else{
-        userExp.classList.add("userExp")
-        titleExp.classList.add("titleExp")
-        userExp.classList.remove("userExp-nocturno")
-        titleExp.classList.remove("titleExp-nocturno")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
-        sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
-        equis.setAttribute("src", "imagenes/close.svg")
-        }
-        
-
-        /*cerrar gif expandido*/
-
-        equis.addEventListener("click", e => {
-          document.getElementById("todo").style.display = "block"
-          document.getElementById("expandir").innerHTML = ""
       })
-  })
 
 
-    if (i == 22){
-        break;
-    } 
-    i++;
-}
-
-
-while(i < persistFavs.length) {
-  let persistFav = persistFavs[i]
-  const aUrl = document.createElement("a")
-  const div = document.createElement("div")
-  const gif = document.createElement("img")
-  let corazonUndido = document.createElement("img")
-  let divCorazon = document.createElement("div")
-  let divHover = document.createElement("div")
-  let titleBuscarGif = document.createElement("p")
-  let userBuscarGif = document.createElement("p")
-  let corazon = document.createElement("img")
-  let expandir = document.createElement("img")
-  let descargar = document.createElement("img")
-  aUrl.setAttribute("href", persistFav.url)
-  aUrl.appendChild(descargar)
-  corazonUndido.classList.add("corazonUndidoFav")
-  corazonUndido.setAttribute("src","imagenes/icon-fav-active.svg")
-  div.classList.add("divGifBuscar")
-  divHover.classList.add("hoverGifsBuscar")
-  corazon.classList.add("btnHoverBuscar")
-  expandir.classList.add("btnHoverBuscar")
-  descargar.classList.add("btnHoverBuscar")
-  corazon.setAttribute("src" ,"imagenes/icon-fav-hover.svg")
-  expandir.setAttribute("src","imagenes/icon-max-normal.svg")
-  descargar.setAttribute("src","imagenes/icon-download.svg")
-  divCorazon.appendChild(corazonUndido)
-  divCorazon.appendChild(corazon)
-  corazon.setAttribute("id","corazonBusqueda")
-  userBuscarGif.textContent = persistFav.user
-  titleBuscarGif.textContent = persistFav.title
-  gif.classList.add("gifFavorito")
-  userBuscarGif.classList.add("userBuscarGif")
-  titleBuscarGif.classList.add("titleBuscarGif")
-  divHover.appendChild(divCorazon)
-  divHover.appendChild(expandir)
-  divHover.appendChild(aUrl)
-  divHover.appendChild(userBuscarGif)
-  divHover.appendChild(titleBuscarGif)
-  div.appendChild(gif)
-  div.appendChild(divHover) 
-  gif.setAttribute("src", persistFav.img)
-  document.getElementById("boxFavoritos3").appendChild(div)
-  corazonUndido.addEventListener("click", () =>{
-    var eliminar = persistFav.id   
-    favs.splice(getIndice(eliminar),1)
-    function getIndice(eliminar){
-      var indice = -1
-      favs.filter(function(dato,i){
-        if(dato.id===eliminar){
-          indice=i
-        }
-      })
-      return indice
+        if (i == 11){
+            break;
+        } 
+        i++;
     }
-    window-localStorage.setItem("favorites", JSON.stringify(favs)) 
-  })
 
-  descargar.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
-  descargar.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
-  expandir.addEventListener("mouseover", () => {expandir.src="imagenes/icon-max-hover.svg"})
-  expandir.addEventListener("mouseout", () => {expandir.src="imagenes/icon-max-normal.svg"})
 
-  gif.addEventListener("click" , () => {
-    corazonUndido.classList.remove("corazonUndidoFav")
-    corazonUndido.classList.remove("corazonUndido")
-        corazonUndido.classList.add("corazonUndidoExp")
-        let bodyExpandir = document.getElementById("expandir")
-        document.getElementById("todo").style.display = "none"
-        let equis = document.createElement("img")
-        let gifExp = document.createElement("img")
-        let containerExpandir = document.createElement("div")
-        let sliderExpIzq = document.createElement("img")
-        let divGifExp = document.createElement("div")
-        let sliderExpDer = document.createElement("img")
-        let divCorazon = document.createElement("div")
-        let corazonExp = document.createElement("img")
-        let descargarExp = document.createElement("img")
-        let userExp = document.createElement("p")
-        let titleExp = document.createElement("p")
-        let divUltimo = document.createElement("div")
-        divCorazon.classList.add("divCorazon")
-        divCorazon.appendChild(corazonExp)
-        divUltimo.classList.add("divUltimo")
-        equis.classList.add("equisExp")
-        gifExp.classList.add("gifExp")
-        containerExpandir.classList.add("containerExpandir")
-        sliderExpIzq.classList.add("sliderExpIzq")
-        divGifExp.classList.add("divGifExp")
-        sliderExpDer.classList.add("sliderExpDer")
-        corazonExp.classList.add("corazonExp")
-        descargarExp.classList.add("descargarExp")
-        userExp.classList.add("userExp")
-        titleExp.classList.add("titleExp")
-        gifExp.setAttribute("src",persistFav.img)
-        titleExp.textContent = persistFav.title
-        userExp.textContent = persistFav.user
-        equis.setAttribute("src", "imagenes/close.svg")
-        corazonExp.setAttribute("src", "imagenes/icon-fav.svg")
-        descargarExp.setAttribute("src", "imagenes/icon-download.svg")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
-        sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
-        bodyExpandir.appendChild(equis)
-        bodyExpandir.appendChild(containerExpandir)
-        containerExpandir.appendChild(sliderExpIzq)
-        containerExpandir.appendChild(divGifExp)
-        divGifExp.appendChild(gifExp)
-        containerExpandir.appendChild(sliderExpDer)
-        let divParrafos = document.createElement("div")
-        divParrafos.appendChild(userExp)
-        divParrafos.appendChild(titleExp)
-        let divBotones = document.createElement("div")
-        divBotones.classList.add("divBotones")
-        divBotones.appendChild(divCorazon)
-        divUltimo.appendChild(divParrafos)
-        divUltimo.appendChild(divBotones)
-        bodyExpandir.appendChild(divUltimo)
-        descargarExp.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
-        descargarExp.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
-        corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-        corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-
-        /*funionalidad de los botones*/
-
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href",persistFav.url)
-        divBotones.appendChild(aUrl)
-        console.log(persistFav)
-         /*mostrar gifs en favoritos*/
-
-        const isExist = favs.filter(fav => fav.id === persistFav.id)
-        var eliminar = persistFav.id
-    
-        console.log(isExist)
-        if (isExist.length > 0){
-          corazonUndido.classList.remove("corazonUndido")
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
-          divCorazon.appendChild(corazonUndido)
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonUndido.style.display="block"
-          corazonUndido.classList.remove("corazonUndidoTrend")
-          corazonUndido.setAttribute("id","corazonUndido_Exp")
-          corazonUndido.addEventListener("click", () =>{
-            
-            favs.splice(getIndice(eliminar),1)
-            function getIndice(eliminar){
-              var indice = -1
-              favs.filter(function(dato,i){
-                if(dato.id===eliminar){
-                  indice=i
-                }
-              })
-              return indice
+    while(i < persistFavs.length) {
+      let persistFav = persistFavs[i]
+      const aUrl = document.createElement("a")
+      const div = document.createElement("div")
+      const gif = document.createElement("img")
+      let corazonUndido = document.createElement("img")
+      let divCorazon = document.createElement("div")
+      let divHover = document.createElement("div")
+      let titleBuscarGif = document.createElement("p")
+      let userBuscarGif = document.createElement("p")
+      let corazon = document.createElement("img")
+      let expandir = document.createElement("img")
+      let descargar = document.createElement("img")
+      aUrl.setAttribute("href", persistFav.url)
+      aUrl.appendChild(descargar)
+      corazonUndido.classList.add("corazonUndidoFav")
+      corazonUndido.setAttribute("src","imagenes/icon-fav-active.svg")
+      div.classList.add("divGifBuscar")
+      divHover.classList.add("hoverGifsBuscar")
+      corazon.classList.add("btnHoverBuscar")
+      expandir.classList.add("btnHoverBuscar")
+      descargar.classList.add("btnHoverBuscar")
+      corazon.setAttribute("src" ,"imagenes/icon-fav-hover.svg")
+      expandir.setAttribute("src","imagenes/icon-max-normal.svg")
+      descargar.setAttribute("src","imagenes/icon-download.svg")
+      divCorazon.appendChild(corazonUndido)
+      divCorazon.appendChild(corazon)
+      corazon.setAttribute("id","corazonBusqueda")
+      userBuscarGif.textContent = persistFav.user
+      titleBuscarGif.textContent = persistFav.title
+      gif.classList.add("gifFavorito")
+      userBuscarGif.classList.add("userBuscarGif")
+      titleBuscarGif.classList.add("titleBuscarGif")
+      divHover.appendChild(divCorazon)
+      divHover.appendChild(expandir)
+      divHover.appendChild(aUrl)
+      divHover.appendChild(userBuscarGif)
+      divHover.appendChild(titleBuscarGif)
+      div.appendChild(gif)
+      div.appendChild(divHover) 
+      gif.setAttribute("src", persistFav.img)
+      document.getElementById("boxFavoritos2").appendChild(div)
+      corazonUndido.addEventListener("click", () =>{
+        var eliminar = persistFav.id   
+        favs.splice(getIndice(eliminar),1)
+        function getIndice(eliminar){
+          var indice = -1
+          favs.filter(function(dato,i){
+            if(dato.id===eliminar){
+              indice=i
             }
-            window-localStorage.setItem("favorites", JSON.stringify(favs)) 
           })
-        }else{
-          corazonUndido.classList.remove("corazonUndido")
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonExp.setAttribute("src","imagenes/icon-fav.svg")
-          corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-          corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-          corazonExp.addEventListener("click", e => {
-            corazonUndido.style.display="block"
-            corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
-            divCorazon.appendChild(corazonUndido)
+          return indice
+        }
+        window-localStorage.setItem("favorites", JSON.stringify(favs)) 
+      })
+
+      descargar.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
+      descargar.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
+      expandir.addEventListener("mouseover", () => {expandir.src="imagenes/icon-max-hover.svg"})
+      expandir.addEventListener("mouseout", () => {expandir.src="imagenes/icon-max-normal.svg"})
+
+      gif.addEventListener("click" , () => {
+        corazonUndido.classList.remove("corazonUndidoFav")
+        corazonUndido.classList.remove("corazonUndido")
+            corazonUndido.classList.add("corazonUndidoExp")
+            let bodyExpandir = document.getElementById("expandir")
+            document.getElementById("todo").style.display = "none"
+            let equis = document.createElement("img")
+            let gifExp = document.createElement("img")
+            let containerExpandir = document.createElement("div")
+            let sliderExpIzq = document.createElement("img")
+            let divGifExp = document.createElement("div")
+            let sliderExpDer = document.createElement("img")
+            let divCorazon = document.createElement("div")
+            let corazonExp = document.createElement("img")
+            let descargarExp = document.createElement("img")
+            let userExp = document.createElement("p")
+            let titleExp = document.createElement("p")
+            let divUltimo = document.createElement("div")
+            divCorazon.classList.add("divCorazon")
+            divCorazon.appendChild(corazonExp)
+            divUltimo.classList.add("divUltimo")
+            equis.classList.add("equisExp")
+            gifExp.classList.add("gifExp")
+            containerExpandir.classList.add("containerExpandir")
+            sliderExpIzq.classList.add("sliderExpIzq")
+            divGifExp.classList.add("divGifExp")
+            sliderExpDer.classList.add("sliderExpDer")
+            corazonExp.classList.add("corazonExp")
+            descargarExp.classList.add("descargarExp")
+            userExp.classList.add("userExp")
+            titleExp.classList.add("titleExp")
+            gifExp.setAttribute("src",persistFav.img)
+            titleExp.textContent = persistFav.title
+            userExp.textContent = persistFav.user
+            equis.setAttribute("src", "imagenes/close.svg")
+            corazonExp.setAttribute("src", "imagenes/icon-fav.svg")
+            descargarExp.setAttribute("src", "imagenes/icon-download.svg")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
+            sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
+            bodyExpandir.appendChild(equis)
+            bodyExpandir.appendChild(containerExpandir)
+            containerExpandir.appendChild(sliderExpIzq)
+            containerExpandir.appendChild(divGifExp)
+            divGifExp.appendChild(gifExp)
+            containerExpandir.appendChild(sliderExpDer)
+            let divParrafos = document.createElement("div")
+            divParrafos.appendChild(userExp)
+            divParrafos.appendChild(titleExp)
+            let divBotones = document.createElement("div")
+            divBotones.classList.add("divBotones")
+            divBotones.appendChild(divCorazon)
+            divUltimo.appendChild(divParrafos)
+            divUltimo.appendChild(divBotones)
+            bodyExpandir.appendChild(divUltimo)
+            descargarExp.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
+            descargarExp.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
             corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-            corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-            corazonUndido.addEventListener("click", () =>{
+            corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+
+            /*funionalidad de los botones*/
+
+            let aUrl = document.createElement("a")
+            aUrl.appendChild(descargarExp)
+            aUrl.setAttribute("href",persistFav.url)
+            divBotones.appendChild(aUrl)
+            console.log(persistFav)
+            /*mostrar gifs en favoritos*/
+
+            const isExist = favs.filter(fav => fav.id === persistFav.id)
+            var eliminar = persistFav.id
+        
+            console.log(isExist)
+            if (isExist.length > 0){
+              corazonUndido.classList.remove("corazonUndido")
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
+              divCorazon.appendChild(corazonUndido)
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonUndido.style.display="block"
+              corazonUndido.classList.remove("corazonUndidoTrend")
+              corazonUndido.setAttribute("id","corazonUndido_Exp")
+              corazonUndido.addEventListener("click", () =>{
+                
+                favs.splice(getIndice(eliminar),1)
+                function getIndice(eliminar){
+                  var indice = -1
+                  favs.filter(function(dato,i){
+                    if(dato.id===eliminar){
+                      indice=i
+                    }
+                  })
+                  return indice
+                }
+                window-localStorage.setItem("favorites", JSON.stringify(favs)) 
+              })
+            }else{
+              corazonUndido.classList.remove("corazonUndido")
+              corazonUndido.classList.add("corazonUndidoExp")
               corazonExp.setAttribute("src","imagenes/icon-fav.svg")
-              corazonUndido.style.display="none"
               corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
               corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-              favs.splice(getIndice(eliminar),1)
-              function getIndice(eliminar){
-                var indice = -1
-                favs.filter(function(dato,i){
-                  if(dato.id===eliminar){
-                    indice=i
+              corazonExp.addEventListener("click", e => {
+                corazonUndido.style.display="block"
+                corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
+                divCorazon.appendChild(corazonUndido)
+                corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                corazonUndido.addEventListener("click", () =>{
+                  corazonExp.setAttribute("src","imagenes/icon-fav.svg")
+                  corazonUndido.style.display="none"
+                  corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                  corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+                  favs.splice(getIndice(eliminar),1)
+                  function getIndice(eliminar){
+                    var indice = -1
+                    favs.filter(function(dato,i){
+                      if(dato.id===eliminar){
+                        indice=i
+                      }
+                    })
+                    return indice
                   }
+                  window-localStorage.setItem("favorites", JSON.stringify(favs)) 
                 })
-                return indice
-              }
-              window-localStorage.setItem("favorites", JSON.stringify(favs)) 
-            })
-            addFav(persistFav)
-          })
-        }
-
-
-       /*modo nocturno*/
-       if (modoNocturno===true){
-        userExp.classList.add("userExp-nocturno")
-        titleExp.classList.add("titleExp-nocturno")
-        userExp.classList.remove("userExp")
-        titleExp.classList.remove("titleExp")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left-md-noct.svg")
-        sliderExpDer.setAttribute("src","imagenes/button-slider-right-md-noct.svg")
-        equis.setAttribute("src", "imagenes/close-modo-noct.svg")
-      }else{
-        userExp.classList.add("userExp")
-        titleExp.classList.add("titleExp")
-        userExp.classList.remove("userExp-nocturno")
-        titleExp.classList.remove("titleExp-nocturno")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
-        sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
-        equis.setAttribute("src", "imagenes/close.svg")
-        }
-        
-
-        /*cerrar gif expandido*/
-
-        equis.addEventListener("click", e => {
-          document.getElementById("todo").style.display = "block"
-          document.getElementById("expandir").innerHTML = ""
-      })
-  })
-  
-  expandir.addEventListener("click" , () => {
-    corazonUndido.classList.remove("corazonUndidoFav")
-    corazonUndido.classList.remove("corazonUndido")
-        corazonUndido.classList.add("corazonUndidoExp")
-        let bodyExpandir = document.getElementById("expandir")
-        document.getElementById("todo").style.display = "none"
-        let equis = document.createElement("img")
-        let gifExp = document.createElement("img")
-        let containerExpandir = document.createElement("div")
-        let sliderExpIzq = document.createElement("img")
-        let divGifExp = document.createElement("div")
-        let sliderExpDer = document.createElement("img")
-        let divCorazon = document.createElement("div")
-        let corazonExp = document.createElement("img")
-        let descargarExp = document.createElement("img")
-        let userExp = document.createElement("p")
-        let titleExp = document.createElement("p")
-        let divUltimo = document.createElement("div")
-        divCorazon.classList.add("divCorazon")
-        divCorazon.appendChild(corazonExp)
-        divUltimo.classList.add("divUltimo")
-        equis.classList.add("equisExp")
-        gifExp.classList.add("gifExp")
-        containerExpandir.classList.add("containerExpandir")
-        sliderExpIzq.classList.add("sliderExpIzq")
-        divGifExp.classList.add("divGifExp")
-        sliderExpDer.classList.add("sliderExpDer")
-        corazonExp.classList.add("corazonExp")
-        descargarExp.classList.add("descargarExp")
-        userExp.classList.add("userExp")
-        titleExp.classList.add("titleExp")
-        gifExp.setAttribute("src",persistFav.img)
-        titleExp.textContent = persistFav.title
-        userExp.textContent = persistFav.user
-        equis.setAttribute("src", "imagenes/close.svg")
-        corazonExp.setAttribute("src", "imagenes/icon-fav.svg")
-        descargarExp.setAttribute("src", "imagenes/icon-download.svg")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
-        sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
-        bodyExpandir.appendChild(equis)
-        bodyExpandir.appendChild(containerExpandir)
-        containerExpandir.appendChild(sliderExpIzq)
-        containerExpandir.appendChild(divGifExp)
-        divGifExp.appendChild(gifExp)
-        containerExpandir.appendChild(sliderExpDer)
-        let divParrafos = document.createElement("div")
-        divParrafos.appendChild(userExp)
-        divParrafos.appendChild(titleExp)
-        let divBotones = document.createElement("div")
-        divBotones.classList.add("divBotones")
-        divBotones.appendChild(divCorazon)
-        divUltimo.appendChild(divParrafos)
-        divUltimo.appendChild(divBotones)
-        bodyExpandir.appendChild(divUltimo)
-        descargarExp.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
-        descargarExp.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
-        corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-        corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-
-        /*funionalidad de los botones*/
-
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href",persistFav.url)
-        divBotones.appendChild(aUrl)
-        console.log(persistFav)
-         /*mostrar gifs en favoritos*/
-
-        const isExist = favs.filter(fav => fav.id === persistFav.id)
-        var eliminar = persistFav.id
-    
-        console.log(isExist)
-        if (isExist.length > 0){
-          corazonUndido.classList.remove("corazonUndido")
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
-          divCorazon.appendChild(corazonUndido)
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonUndido.style.display="block"
-          corazonUndido.classList.remove("corazonUndidoTrend")
-          corazonUndido.setAttribute("id","corazonUndido_Exp")
-          corazonUndido.addEventListener("click", () =>{
-            
-            favs.splice(getIndice(eliminar),1)
-            function getIndice(eliminar){
-              var indice = -1
-              favs.filter(function(dato,i){
-                if(dato.id===eliminar){
-                  indice=i
-                }
+                addFav(persistFav)
               })
-              return indice
             }
-            window-localStorage.setItem("favorites", JSON.stringify(favs)) 
+
+
+          /*modo nocturno*/
+          if (modoNocturno===true){
+            userExp.classList.add("userExp-nocturno")
+            titleExp.classList.add("titleExp-nocturno")
+            userExp.classList.remove("userExp")
+            titleExp.classList.remove("titleExp")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left-md-noct.svg")
+            sliderExpDer.setAttribute("src","imagenes/button-slider-right-md-noct.svg")
+            equis.setAttribute("src", "imagenes/close-modo-noct.svg")
+          }else{
+            userExp.classList.add("userExp")
+            titleExp.classList.add("titleExp")
+            userExp.classList.remove("userExp-nocturno")
+            titleExp.classList.remove("titleExp-nocturno")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
+            sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
+            equis.setAttribute("src", "imagenes/close.svg")
+            }
+            
+
+            /*cerrar gif expandido*/
+
+            equis.addEventListener("click", e => {
+              document.getElementById("todo").style.display = "block"
+              document.getElementById("expandir").innerHTML = ""
           })
-        }else{
-          corazonUndido.classList.remove("corazonUndido")
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonExp.setAttribute("src","imagenes/icon-fav.svg")
-          corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-          corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-          corazonExp.addEventListener("click", e => {
-            corazonUndido.style.display="block"
-            corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
-            divCorazon.appendChild(corazonUndido)
+      })
+      
+      expandir.addEventListener("click" , () => {
+        corazonUndido.classList.remove("corazonUndidoFav")
+        corazonUndido.classList.remove("corazonUndido")
+            corazonUndido.classList.add("corazonUndidoExp")
+            let bodyExpandir = document.getElementById("expandir")
+            document.getElementById("todo").style.display = "none"
+            let equis = document.createElement("img")
+            let gifExp = document.createElement("img")
+            let containerExpandir = document.createElement("div")
+            let sliderExpIzq = document.createElement("img")
+            let divGifExp = document.createElement("div")
+            let sliderExpDer = document.createElement("img")
+            let divCorazon = document.createElement("div")
+            let corazonExp = document.createElement("img")
+            let descargarExp = document.createElement("img")
+            let userExp = document.createElement("p")
+            let titleExp = document.createElement("p")
+            let divUltimo = document.createElement("div")
+            divCorazon.classList.add("divCorazon")
+            divCorazon.appendChild(corazonExp)
+            divUltimo.classList.add("divUltimo")
+            equis.classList.add("equisExp")
+            gifExp.classList.add("gifExp")
+            containerExpandir.classList.add("containerExpandir")
+            sliderExpIzq.classList.add("sliderExpIzq")
+            divGifExp.classList.add("divGifExp")
+            sliderExpDer.classList.add("sliderExpDer")
+            corazonExp.classList.add("corazonExp")
+            descargarExp.classList.add("descargarExp")
+            userExp.classList.add("userExp")
+            titleExp.classList.add("titleExp")
+            gifExp.setAttribute("src",persistFav.img)
+            titleExp.textContent = persistFav.title
+            userExp.textContent = persistFav.user
+            equis.setAttribute("src", "imagenes/close.svg")
+            corazonExp.setAttribute("src", "imagenes/icon-fav.svg")
+            descargarExp.setAttribute("src", "imagenes/icon-download.svg")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
+            sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
+            bodyExpandir.appendChild(equis)
+            bodyExpandir.appendChild(containerExpandir)
+            containerExpandir.appendChild(sliderExpIzq)
+            containerExpandir.appendChild(divGifExp)
+            divGifExp.appendChild(gifExp)
+            containerExpandir.appendChild(sliderExpDer)
+            let divParrafos = document.createElement("div")
+            divParrafos.appendChild(userExp)
+            divParrafos.appendChild(titleExp)
+            let divBotones = document.createElement("div")
+            divBotones.classList.add("divBotones")
+            divBotones.appendChild(divCorazon)
+            divUltimo.appendChild(divParrafos)
+            divUltimo.appendChild(divBotones)
+            bodyExpandir.appendChild(divUltimo)
+            descargarExp.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
+            descargarExp.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
             corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-            corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-            corazonUndido.addEventListener("click", () =>{
+            corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+
+            /*funionalidad de los botones*/
+
+            let aUrl = document.createElement("a")
+            aUrl.appendChild(descargarExp)
+            aUrl.setAttribute("href",persistFav.url)
+            divBotones.appendChild(aUrl)
+            console.log(persistFav)
+            /*mostrar gifs en favoritos*/
+
+            const isExist = favs.filter(fav => fav.id === persistFav.id)
+            var eliminar = persistFav.id
+        
+            console.log(isExist)
+            if (isExist.length > 0){
+              corazonUndido.classList.remove("corazonUndido")
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
+              divCorazon.appendChild(corazonUndido)
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonUndido.style.display="block"
+              corazonUndido.classList.remove("corazonUndidoTrend")
+              corazonUndido.setAttribute("id","corazonUndido_Exp")
+              corazonUndido.addEventListener("click", () =>{
+                
+                favs.splice(getIndice(eliminar),1)
+                function getIndice(eliminar){
+                  var indice = -1
+                  favs.filter(function(dato,i){
+                    if(dato.id===eliminar){
+                      indice=i
+                    }
+                  })
+                  return indice
+                }
+                window-localStorage.setItem("favorites", JSON.stringify(favs)) 
+              })
+            }else{
+              corazonUndido.classList.remove("corazonUndido")
+              corazonUndido.classList.add("corazonUndidoExp")
               corazonExp.setAttribute("src","imagenes/icon-fav.svg")
-              corazonUndido.style.display="none"
               corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
               corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-              favs.splice(getIndice(eliminar),1)
-              function getIndice(eliminar){
-                var indice = -1
-                favs.filter(function(dato,i){
-                  if(dato.id===eliminar){
-                    indice=i
+              corazonExp.addEventListener("click", e => {
+                corazonUndido.style.display="block"
+                corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
+                divCorazon.appendChild(corazonUndido)
+                corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                corazonUndido.addEventListener("click", () =>{
+                  corazonExp.setAttribute("src","imagenes/icon-fav.svg")
+                  corazonUndido.style.display="none"
+                  corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                  corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+                  favs.splice(getIndice(eliminar),1)
+                  function getIndice(eliminar){
+                    var indice = -1
+                    favs.filter(function(dato,i){
+                      if(dato.id===eliminar){
+                        indice=i
+                      }
+                    })
+                    return indice
                   }
+                  window-localStorage.setItem("favorites", JSON.stringify(favs)) 
                 })
-                return indice
-              }
-              window-localStorage.setItem("favorites", JSON.stringify(favs)) 
-            })
-            addFav(persistFav)
+                addFav(persistFav)
+              })
+            }
+
+
+          /*modo nocturno*/
+          if (modoNocturno===true){
+            userExp.classList.add("userExp-nocturno")
+            titleExp.classList.add("titleExp-nocturno")
+            userExp.classList.remove("userExp")
+            titleExp.classList.remove("titleExp")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left-md-noct.svg")
+            sliderExpDer.setAttribute("src","imagenes/button-slider-right-md-noct.svg")
+            equis.setAttribute("src", "imagenes/close-modo-noct.svg")
+          }else{
+            userExp.classList.add("userExp")
+            titleExp.classList.add("titleExp")
+            userExp.classList.remove("userExp-nocturno")
+            titleExp.classList.remove("titleExp-nocturno")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
+            sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
+            equis.setAttribute("src", "imagenes/close.svg")
+            }
+            
+
+            /*cerrar gif expandido*/
+
+            equis.addEventListener("click", e => {
+              document.getElementById("todo").style.display = "block"
+              document.getElementById("expandir").innerHTML = ""
           })
-        }
-
-
-       /*modo nocturno*/
-       if (modoNocturno===true){
-        userExp.classList.add("userExp-nocturno")
-        titleExp.classList.add("titleExp-nocturno")
-        userExp.classList.remove("userExp")
-        titleExp.classList.remove("titleExp")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left-md-noct.svg")
-        sliderExpDer.setAttribute("src","imagenes/button-slider-right-md-noct.svg")
-        equis.setAttribute("src", "imagenes/close-modo-noct.svg")
-      }else{
-        userExp.classList.add("userExp")
-        titleExp.classList.add("titleExp")
-        userExp.classList.remove("userExp-nocturno")
-        titleExp.classList.remove("titleExp-nocturno")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
-        sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
-        equis.setAttribute("src", "imagenes/close.svg")
-        }
-        
-
-        /*cerrar gif expandido*/
-
-        equis.addEventListener("click", e => {
-          document.getElementById("todo").style.display = "block"
-          document.getElementById("expandir").innerHTML = ""
       })
-  })
 
 
-    if (i == 33){
-        break;
-    } 
-    i++;
-}
-
-while(i < persistFavs.length) {
-  let persistFav = persistFavs[i]
-  const aUrl = document.createElement("a")
-  const div = document.createElement("div")
-  const gif = document.createElement("img")
-  let corazonUndido = document.createElement("img")
-  let divCorazon = document.createElement("div")
-  let divHover = document.createElement("div")
-  let titleBuscarGif = document.createElement("p")
-  let userBuscarGif = document.createElement("p")
-  let corazon = document.createElement("img")
-  let expandir = document.createElement("img")
-  let descargar = document.createElement("img")
-  aUrl.setAttribute("href", persistFav.url)
-  aUrl.appendChild(descargar)
-  corazonUndido.classList.add("corazonUndidoFav")
-  corazonUndido.setAttribute("src","imagenes/icon-fav-active.svg")
-  div.classList.add("divGifBuscar")
-  divHover.classList.add("hoverGifsBuscar")
-  corazon.classList.add("btnHoverBuscar")
-  expandir.classList.add("btnHoverBuscar")
-  descargar.classList.add("btnHoverBuscar")
-  corazon.setAttribute("src" ,"imagenes/icon-fav-hover.svg")
-  expandir.setAttribute("src","imagenes/icon-max-normal.svg")
-  descargar.setAttribute("src","imagenes/icon-download.svg")
-  divCorazon.appendChild(corazonUndido)
-  divCorazon.appendChild(corazon)
-  corazon.setAttribute("id","corazonBusqueda")
-  userBuscarGif.textContent = persistFav.user
-  titleBuscarGif.textContent = persistFav.title
-  gif.classList.add("gifFavorito")
-  userBuscarGif.classList.add("userBuscarGif")
-  titleBuscarGif.classList.add("titleBuscarGif")
-  divHover.appendChild(divCorazon)
-  divHover.appendChild(expandir)
-  divHover.appendChild(aUrl)
-  divHover.appendChild(userBuscarGif)
-  divHover.appendChild(titleBuscarGif)
-  div.appendChild(gif)
-  div.appendChild(divHover) 
-  gif.setAttribute("src", persistFav.img)
-  document.getElementById("boxFavoritos4").appendChild(div)
-  corazonUndido.addEventListener("click", () =>{
-    var eliminar = persistFav.id   
-    favs.splice(getIndice(eliminar),1)
-    function getIndice(eliminar){
-      var indice = -1
-      favs.filter(function(dato,i){
-        if(dato.id===eliminar){
-          indice=i
-        }
-      })
-      return indice
+        if (i == 22){
+            break;
+        } 
+        i++;
     }
-    window-localStorage.setItem("favorites", JSON.stringify(favs)) 
-  })
 
-  descargar.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
-  descargar.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
-  expandir.addEventListener("mouseover", () => {expandir.src="imagenes/icon-max-hover.svg"})
-  expandir.addEventListener("mouseout", () => {expandir.src="imagenes/icon-max-normal.svg"})
 
-  gif.addEventListener("click" , () => {
-    corazonUndido.classList.remove("corazonUndidoFav")
-    corazonUndido.classList.remove("corazonUndido")
-        corazonUndido.classList.add("corazonUndidoExp")
-        let bodyExpandir = document.getElementById("expandir")
-        document.getElementById("todo").style.display = "none"
-        let equis = document.createElement("img")
-        let gifExp = document.createElement("img")
-        let containerExpandir = document.createElement("div")
-        let sliderExpIzq = document.createElement("img")
-        let divGifExp = document.createElement("div")
-        let sliderExpDer = document.createElement("img")
-        let divCorazon = document.createElement("div")
-        let corazonExp = document.createElement("img")
-        let descargarExp = document.createElement("img")
-        let userExp = document.createElement("p")
-        let titleExp = document.createElement("p")
-        let divUltimo = document.createElement("div")
-        divCorazon.classList.add("divCorazon")
-        divCorazon.appendChild(corazonExp)
-        divUltimo.classList.add("divUltimo")
-        equis.classList.add("equisExp")
-        gifExp.classList.add("gifExp")
-        containerExpandir.classList.add("containerExpandir")
-        sliderExpIzq.classList.add("sliderExpIzq")
-        divGifExp.classList.add("divGifExp")
-        sliderExpDer.classList.add("sliderExpDer")
-        corazonExp.classList.add("corazonExp")
-        descargarExp.classList.add("descargarExp")
-        userExp.classList.add("userExp")
-        titleExp.classList.add("titleExp")
-        gifExp.setAttribute("src",persistFav.img)
-        titleExp.textContent = persistFav.title
-        userExp.textContent = persistFav.user
-        equis.setAttribute("src", "imagenes/close.svg")
-        corazonExp.setAttribute("src", "imagenes/icon-fav.svg")
-        descargarExp.setAttribute("src", "imagenes/icon-download.svg")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
-        sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
-        bodyExpandir.appendChild(equis)
-        bodyExpandir.appendChild(containerExpandir)
-        containerExpandir.appendChild(sliderExpIzq)
-        containerExpandir.appendChild(divGifExp)
-        divGifExp.appendChild(gifExp)
-        containerExpandir.appendChild(sliderExpDer)
-        let divParrafos = document.createElement("div")
-        divParrafos.appendChild(userExp)
-        divParrafos.appendChild(titleExp)
-        let divBotones = document.createElement("div")
-        divBotones.classList.add("divBotones")
-        divBotones.appendChild(divCorazon)
-        divUltimo.appendChild(divParrafos)
-        divUltimo.appendChild(divBotones)
-        bodyExpandir.appendChild(divUltimo)
-        descargarExp.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
-        descargarExp.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
-        corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-        corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-
-        /*funionalidad de los botones*/
-
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href",persistFav.url)
-        divBotones.appendChild(aUrl)
-        console.log(persistFav)
-         /*mostrar gifs en favoritos*/
-
-        const isExist = favs.filter(fav => fav.id === persistFav.id)
-        var eliminar = persistFav.id
-    
-        console.log(isExist)
-        if (isExist.length > 0){
-          corazonUndido.classList.remove("corazonUndido")
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
-          divCorazon.appendChild(corazonUndido)
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonUndido.style.display="block"
-          corazonUndido.classList.remove("corazonUndidoTrend")
-          corazonUndido.setAttribute("id","corazonUndido_Exp")
-          corazonUndido.addEventListener("click", () =>{
-            
-            favs.splice(getIndice(eliminar),1)
-            function getIndice(eliminar){
-              var indice = -1
-              favs.filter(function(dato,i){
-                if(dato.id===eliminar){
-                  indice=i
-                }
-              })
-              return indice
+    while(i < persistFavs.length) {
+      let persistFav = persistFavs[i]
+      const aUrl = document.createElement("a")
+      const div = document.createElement("div")
+      const gif = document.createElement("img")
+      let corazonUndido = document.createElement("img")
+      let divCorazon = document.createElement("div")
+      let divHover = document.createElement("div")
+      let titleBuscarGif = document.createElement("p")
+      let userBuscarGif = document.createElement("p")
+      let corazon = document.createElement("img")
+      let expandir = document.createElement("img")
+      let descargar = document.createElement("img")
+      aUrl.setAttribute("href", persistFav.url)
+      aUrl.appendChild(descargar)
+      corazonUndido.classList.add("corazonUndidoFav")
+      corazonUndido.setAttribute("src","imagenes/icon-fav-active.svg")
+      div.classList.add("divGifBuscar")
+      divHover.classList.add("hoverGifsBuscar")
+      corazon.classList.add("btnHoverBuscar")
+      expandir.classList.add("btnHoverBuscar")
+      descargar.classList.add("btnHoverBuscar")
+      corazon.setAttribute("src" ,"imagenes/icon-fav-hover.svg")
+      expandir.setAttribute("src","imagenes/icon-max-normal.svg")
+      descargar.setAttribute("src","imagenes/icon-download.svg")
+      divCorazon.appendChild(corazonUndido)
+      divCorazon.appendChild(corazon)
+      corazon.setAttribute("id","corazonBusqueda")
+      userBuscarGif.textContent = persistFav.user
+      titleBuscarGif.textContent = persistFav.title
+      gif.classList.add("gifFavorito")
+      userBuscarGif.classList.add("userBuscarGif")
+      titleBuscarGif.classList.add("titleBuscarGif")
+      divHover.appendChild(divCorazon)
+      divHover.appendChild(expandir)
+      divHover.appendChild(aUrl)
+      divHover.appendChild(userBuscarGif)
+      divHover.appendChild(titleBuscarGif)
+      div.appendChild(gif)
+      div.appendChild(divHover) 
+      gif.setAttribute("src", persistFav.img)
+      document.getElementById("boxFavoritos3").appendChild(div)
+      corazonUndido.addEventListener("click", () =>{
+        var eliminar = persistFav.id   
+        favs.splice(getIndice(eliminar),1)
+        function getIndice(eliminar){
+          var indice = -1
+          favs.filter(function(dato,i){
+            if(dato.id===eliminar){
+              indice=i
             }
-            window-localStorage.setItem("favorites", JSON.stringify(favs)) 
           })
-        }else{
-          corazonUndido.classList.remove("corazonUndido")
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonExp.setAttribute("src","imagenes/icon-fav.svg")
-          corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-          corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-          corazonExp.addEventListener("click", e => {
-            corazonUndido.style.display="block"
-            corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
-            divCorazon.appendChild(corazonUndido)
+          return indice
+        }
+        window-localStorage.setItem("favorites", JSON.stringify(favs)) 
+      })
+
+      descargar.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
+      descargar.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
+      expandir.addEventListener("mouseover", () => {expandir.src="imagenes/icon-max-hover.svg"})
+      expandir.addEventListener("mouseout", () => {expandir.src="imagenes/icon-max-normal.svg"})
+
+      gif.addEventListener("click" , () => {
+        corazonUndido.classList.remove("corazonUndidoFav")
+        corazonUndido.classList.remove("corazonUndido")
+            corazonUndido.classList.add("corazonUndidoExp")
+            let bodyExpandir = document.getElementById("expandir")
+            document.getElementById("todo").style.display = "none"
+            let equis = document.createElement("img")
+            let gifExp = document.createElement("img")
+            let containerExpandir = document.createElement("div")
+            let sliderExpIzq = document.createElement("img")
+            let divGifExp = document.createElement("div")
+            let sliderExpDer = document.createElement("img")
+            let divCorazon = document.createElement("div")
+            let corazonExp = document.createElement("img")
+            let descargarExp = document.createElement("img")
+            let userExp = document.createElement("p")
+            let titleExp = document.createElement("p")
+            let divUltimo = document.createElement("div")
+            divCorazon.classList.add("divCorazon")
+            divCorazon.appendChild(corazonExp)
+            divUltimo.classList.add("divUltimo")
+            equis.classList.add("equisExp")
+            gifExp.classList.add("gifExp")
+            containerExpandir.classList.add("containerExpandir")
+            sliderExpIzq.classList.add("sliderExpIzq")
+            divGifExp.classList.add("divGifExp")
+            sliderExpDer.classList.add("sliderExpDer")
+            corazonExp.classList.add("corazonExp")
+            descargarExp.classList.add("descargarExp")
+            userExp.classList.add("userExp")
+            titleExp.classList.add("titleExp")
+            gifExp.setAttribute("src",persistFav.img)
+            titleExp.textContent = persistFav.title
+            userExp.textContent = persistFav.user
+            equis.setAttribute("src", "imagenes/close.svg")
+            corazonExp.setAttribute("src", "imagenes/icon-fav.svg")
+            descargarExp.setAttribute("src", "imagenes/icon-download.svg")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
+            sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
+            bodyExpandir.appendChild(equis)
+            bodyExpandir.appendChild(containerExpandir)
+            containerExpandir.appendChild(sliderExpIzq)
+            containerExpandir.appendChild(divGifExp)
+            divGifExp.appendChild(gifExp)
+            containerExpandir.appendChild(sliderExpDer)
+            let divParrafos = document.createElement("div")
+            divParrafos.appendChild(userExp)
+            divParrafos.appendChild(titleExp)
+            let divBotones = document.createElement("div")
+            divBotones.classList.add("divBotones")
+            divBotones.appendChild(divCorazon)
+            divUltimo.appendChild(divParrafos)
+            divUltimo.appendChild(divBotones)
+            bodyExpandir.appendChild(divUltimo)
+            descargarExp.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
+            descargarExp.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
             corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-            corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-            corazonUndido.addEventListener("click", () =>{
+            corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+
+            /*funionalidad de los botones*/
+
+            let aUrl = document.createElement("a")
+            aUrl.appendChild(descargarExp)
+            aUrl.setAttribute("href",persistFav.url)
+            divBotones.appendChild(aUrl)
+            console.log(persistFav)
+            /*mostrar gifs en favoritos*/
+
+            const isExist = favs.filter(fav => fav.id === persistFav.id)
+            var eliminar = persistFav.id
+        
+            console.log(isExist)
+            if (isExist.length > 0){
+              corazonUndido.classList.remove("corazonUndido")
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
+              divCorazon.appendChild(corazonUndido)
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonUndido.style.display="block"
+              corazonUndido.classList.remove("corazonUndidoTrend")
+              corazonUndido.setAttribute("id","corazonUndido_Exp")
+              corazonUndido.addEventListener("click", () =>{
+                
+                favs.splice(getIndice(eliminar),1)
+                function getIndice(eliminar){
+                  var indice = -1
+                  favs.filter(function(dato,i){
+                    if(dato.id===eliminar){
+                      indice=i
+                    }
+                  })
+                  return indice
+                }
+                window-localStorage.setItem("favorites", JSON.stringify(favs)) 
+              })
+            }else{
+              corazonUndido.classList.remove("corazonUndido")
+              corazonUndido.classList.add("corazonUndidoExp")
               corazonExp.setAttribute("src","imagenes/icon-fav.svg")
-              corazonUndido.style.display="none"
               corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
               corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-              favs.splice(getIndice(eliminar),1)
-              function getIndice(eliminar){
-                var indice = -1
-                favs.filter(function(dato,i){
-                  if(dato.id===eliminar){
-                    indice=i
+              corazonExp.addEventListener("click", e => {
+                corazonUndido.style.display="block"
+                corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
+                divCorazon.appendChild(corazonUndido)
+                corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                corazonUndido.addEventListener("click", () =>{
+                  corazonExp.setAttribute("src","imagenes/icon-fav.svg")
+                  corazonUndido.style.display="none"
+                  corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                  corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+                  favs.splice(getIndice(eliminar),1)
+                  function getIndice(eliminar){
+                    var indice = -1
+                    favs.filter(function(dato,i){
+                      if(dato.id===eliminar){
+                        indice=i
+                      }
+                    })
+                    return indice
                   }
+                  window-localStorage.setItem("favorites", JSON.stringify(favs)) 
                 })
-                return indice
-              }
-              window-localStorage.setItem("favorites", JSON.stringify(favs)) 
-            })
-            addFav(persistFav)
-          })
-        }
-
-
-       /*modo nocturno*/
-       if (modoNocturno===true){
-        userExp.classList.add("userExp-nocturno")
-        titleExp.classList.add("titleExp-nocturno")
-        userExp.classList.remove("userExp")
-        titleExp.classList.remove("titleExp")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left-md-noct.svg")
-        sliderExpDer.setAttribute("src","imagenes/button-slider-right-md-noct.svg")
-        equis.setAttribute("src", "imagenes/close-modo-noct.svg")
-      }else{
-        userExp.classList.add("userExp")
-        titleExp.classList.add("titleExp")
-        userExp.classList.remove("userExp-nocturno")
-        titleExp.classList.remove("titleExp-nocturno")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
-        sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
-        equis.setAttribute("src", "imagenes/close.svg")
-        }
-        
-
-        /*cerrar gif expandido*/
-
-        equis.addEventListener("click", e => {
-          document.getElementById("todo").style.display = "block"
-          document.getElementById("expandir").innerHTML = ""
-      })
-  })
-  
-  expandir.addEventListener("click" , () => {
-    corazonUndido.classList.remove("corazonUndidoFav")
-    corazonUndido.classList.remove("corazonUndido")
-        corazonUndido.classList.add("corazonUndidoExp")
-        let bodyExpandir = document.getElementById("expandir")
-        document.getElementById("todo").style.display = "none"
-        let equis = document.createElement("img")
-        let gifExp = document.createElement("img")
-        let containerExpandir = document.createElement("div")
-        let sliderExpIzq = document.createElement("img")
-        let divGifExp = document.createElement("div")
-        let sliderExpDer = document.createElement("img")
-        let divCorazon = document.createElement("div")
-        let corazonExp = document.createElement("img")
-        let descargarExp = document.createElement("img")
-        let userExp = document.createElement("p")
-        let titleExp = document.createElement("p")
-        let divUltimo = document.createElement("div")
-        divCorazon.classList.add("divCorazon")
-        divCorazon.appendChild(corazonExp)
-        divUltimo.classList.add("divUltimo")
-        equis.classList.add("equisExp")
-        gifExp.classList.add("gifExp")
-        containerExpandir.classList.add("containerExpandir")
-        sliderExpIzq.classList.add("sliderExpIzq")
-        divGifExp.classList.add("divGifExp")
-        sliderExpDer.classList.add("sliderExpDer")
-        corazonExp.classList.add("corazonExp")
-        descargarExp.classList.add("descargarExp")
-        userExp.classList.add("userExp")
-        titleExp.classList.add("titleExp")
-        gifExp.setAttribute("src",persistFav.img)
-        titleExp.textContent = persistFav.title
-        userExp.textContent = persistFav.user
-        equis.setAttribute("src", "imagenes/close.svg")
-        corazonExp.setAttribute("src", "imagenes/icon-fav.svg")
-        descargarExp.setAttribute("src", "imagenes/icon-download.svg")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
-        sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
-        bodyExpandir.appendChild(equis)
-        bodyExpandir.appendChild(containerExpandir)
-        containerExpandir.appendChild(sliderExpIzq)
-        containerExpandir.appendChild(divGifExp)
-        divGifExp.appendChild(gifExp)
-        containerExpandir.appendChild(sliderExpDer)
-        let divParrafos = document.createElement("div")
-        divParrafos.appendChild(userExp)
-        divParrafos.appendChild(titleExp)
-        let divBotones = document.createElement("div")
-        divBotones.classList.add("divBotones")
-        divBotones.appendChild(divCorazon)
-        divUltimo.appendChild(divParrafos)
-        divUltimo.appendChild(divBotones)
-        bodyExpandir.appendChild(divUltimo)
-        descargarExp.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
-        descargarExp.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
-        corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-        corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-
-        /*funionalidad de los botones*/
-
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href",persistFav.url)
-        divBotones.appendChild(aUrl)
-        console.log(persistFav)
-         /*mostrar gifs en favoritos*/
-
-        const isExist = favs.filter(fav => fav.id === persistFav.id)
-        var eliminar = persistFav.id
-    
-        console.log(isExist)
-        if (isExist.length > 0){
-          corazonUndido.classList.remove("corazonUndido")
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
-          divCorazon.appendChild(corazonUndido)
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonUndido.style.display="block"
-          corazonUndido.classList.remove("corazonUndidoTrend")
-          corazonUndido.setAttribute("id","corazonUndido_Exp")
-          corazonUndido.addEventListener("click", () =>{
-            
-            favs.splice(getIndice(eliminar),1)
-            function getIndice(eliminar){
-              var indice = -1
-              favs.filter(function(dato,i){
-                if(dato.id===eliminar){
-                  indice=i
-                }
+                addFav(persistFav)
               })
-              return indice
             }
-            window-localStorage.setItem("favorites", JSON.stringify(favs)) 
+
+
+          /*modo nocturno*/
+          if (modoNocturno===true){
+            userExp.classList.add("userExp-nocturno")
+            titleExp.classList.add("titleExp-nocturno")
+            userExp.classList.remove("userExp")
+            titleExp.classList.remove("titleExp")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left-md-noct.svg")
+            sliderExpDer.setAttribute("src","imagenes/button-slider-right-md-noct.svg")
+            equis.setAttribute("src", "imagenes/close-modo-noct.svg")
+          }else{
+            userExp.classList.add("userExp")
+            titleExp.classList.add("titleExp")
+            userExp.classList.remove("userExp-nocturno")
+            titleExp.classList.remove("titleExp-nocturno")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
+            sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
+            equis.setAttribute("src", "imagenes/close.svg")
+            }
+            
+
+            /*cerrar gif expandido*/
+
+            equis.addEventListener("click", e => {
+              document.getElementById("todo").style.display = "block"
+              document.getElementById("expandir").innerHTML = ""
           })
-        }else{
-          corazonUndido.classList.remove("corazonUndido")
-          corazonUndido.classList.add("corazonUndidoExp")
-          corazonExp.setAttribute("src","imagenes/icon-fav.svg")
-          corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-          corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-          corazonExp.addEventListener("click", e => {
-            corazonUndido.style.display="block"
-            corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
-            divCorazon.appendChild(corazonUndido)
+      })
+      
+      expandir.addEventListener("click" , () => {
+        corazonUndido.classList.remove("corazonUndidoFav")
+        corazonUndido.classList.remove("corazonUndido")
+            corazonUndido.classList.add("corazonUndidoExp")
+            let bodyExpandir = document.getElementById("expandir")
+            document.getElementById("todo").style.display = "none"
+            let equis = document.createElement("img")
+            let gifExp = document.createElement("img")
+            let containerExpandir = document.createElement("div")
+            let sliderExpIzq = document.createElement("img")
+            let divGifExp = document.createElement("div")
+            let sliderExpDer = document.createElement("img")
+            let divCorazon = document.createElement("div")
+            let corazonExp = document.createElement("img")
+            let descargarExp = document.createElement("img")
+            let userExp = document.createElement("p")
+            let titleExp = document.createElement("p")
+            let divUltimo = document.createElement("div")
+            divCorazon.classList.add("divCorazon")
+            divCorazon.appendChild(corazonExp)
+            divUltimo.classList.add("divUltimo")
+            equis.classList.add("equisExp")
+            gifExp.classList.add("gifExp")
+            containerExpandir.classList.add("containerExpandir")
+            sliderExpIzq.classList.add("sliderExpIzq")
+            divGifExp.classList.add("divGifExp")
+            sliderExpDer.classList.add("sliderExpDer")
+            corazonExp.classList.add("corazonExp")
+            descargarExp.classList.add("descargarExp")
+            userExp.classList.add("userExp")
+            titleExp.classList.add("titleExp")
+            gifExp.setAttribute("src",persistFav.img)
+            titleExp.textContent = persistFav.title
+            userExp.textContent = persistFav.user
+            equis.setAttribute("src", "imagenes/close.svg")
+            corazonExp.setAttribute("src", "imagenes/icon-fav.svg")
+            descargarExp.setAttribute("src", "imagenes/icon-download.svg")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
+            sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
+            bodyExpandir.appendChild(equis)
+            bodyExpandir.appendChild(containerExpandir)
+            containerExpandir.appendChild(sliderExpIzq)
+            containerExpandir.appendChild(divGifExp)
+            divGifExp.appendChild(gifExp)
+            containerExpandir.appendChild(sliderExpDer)
+            let divParrafos = document.createElement("div")
+            divParrafos.appendChild(userExp)
+            divParrafos.appendChild(titleExp)
+            let divBotones = document.createElement("div")
+            divBotones.classList.add("divBotones")
+            divBotones.appendChild(divCorazon)
+            divUltimo.appendChild(divParrafos)
+            divUltimo.appendChild(divBotones)
+            bodyExpandir.appendChild(divUltimo)
+            descargarExp.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
+            descargarExp.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
             corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-            corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav-hover.svg"})
-            corazonUndido.addEventListener("click", () =>{
+            corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+
+            /*funionalidad de los botones*/
+
+            let aUrl = document.createElement("a")
+            aUrl.appendChild(descargarExp)
+            aUrl.setAttribute("href",persistFav.url)
+            divBotones.appendChild(aUrl)
+            console.log(persistFav)
+            /*mostrar gifs en favoritos*/
+
+            const isExist = favs.filter(fav => fav.id === persistFav.id)
+            var eliminar = persistFav.id
+        
+            console.log(isExist)
+            if (isExist.length > 0){
+              corazonUndido.classList.remove("corazonUndido")
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
+              divCorazon.appendChild(corazonUndido)
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonUndido.style.display="block"
+              corazonUndido.classList.remove("corazonUndidoTrend")
+              corazonUndido.setAttribute("id","corazonUndido_Exp")
+              corazonUndido.addEventListener("click", () =>{
+                
+                favs.splice(getIndice(eliminar),1)
+                function getIndice(eliminar){
+                  var indice = -1
+                  favs.filter(function(dato,i){
+                    if(dato.id===eliminar){
+                      indice=i
+                    }
+                  })
+                  return indice
+                }
+                window-localStorage.setItem("favorites", JSON.stringify(favs)) 
+              })
+            }else{
+              corazonUndido.classList.remove("corazonUndido")
+              corazonUndido.classList.add("corazonUndidoExp")
               corazonExp.setAttribute("src","imagenes/icon-fav.svg")
-              corazonUndido.style.display="none"
               corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
               corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
-              favs.splice(getIndice(eliminar),1)
-              function getIndice(eliminar){
-                var indice = -1
-                favs.filter(function(dato,i){
-                  if(dato.id===eliminar){
-                    indice=i
+              corazonExp.addEventListener("click", e => {
+                corazonUndido.style.display="block"
+                corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
+                divCorazon.appendChild(corazonUndido)
+                corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                corazonUndido.addEventListener("click", () =>{
+                  corazonExp.setAttribute("src","imagenes/icon-fav.svg")
+                  corazonUndido.style.display="none"
+                  corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                  corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+                  favs.splice(getIndice(eliminar),1)
+                  function getIndice(eliminar){
+                    var indice = -1
+                    favs.filter(function(dato,i){
+                      if(dato.id===eliminar){
+                        indice=i
+                      }
+                    })
+                    return indice
                   }
+                  window-localStorage.setItem("favorites", JSON.stringify(favs)) 
                 })
-                return indice
-              }
-              window-localStorage.setItem("favorites", JSON.stringify(favs)) 
-            })
-            addFav(persistFav)
+                addFav(persistFav)
+              })
+            }
+
+
+          /*modo nocturno*/
+          if (modoNocturno===true){
+            userExp.classList.add("userExp-nocturno")
+            titleExp.classList.add("titleExp-nocturno")
+            userExp.classList.remove("userExp")
+            titleExp.classList.remove("titleExp")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left-md-noct.svg")
+            sliderExpDer.setAttribute("src","imagenes/button-slider-right-md-noct.svg")
+            equis.setAttribute("src", "imagenes/close-modo-noct.svg")
+          }else{
+            userExp.classList.add("userExp")
+            titleExp.classList.add("titleExp")
+            userExp.classList.remove("userExp-nocturno")
+            titleExp.classList.remove("titleExp-nocturno")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
+            sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
+            equis.setAttribute("src", "imagenes/close.svg")
+            }
+            
+
+            /*cerrar gif expandido*/
+
+            equis.addEventListener("click", e => {
+              document.getElementById("todo").style.display = "block"
+              document.getElementById("expandir").innerHTML = ""
           })
-        }
-
-
-       /*modo nocturno*/
-       if (modoNocturno===true){
-        userExp.classList.add("userExp-nocturno")
-        titleExp.classList.add("titleExp-nocturno")
-        userExp.classList.remove("userExp")
-        titleExp.classList.remove("titleExp")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left-md-noct.svg")
-        sliderExpDer.setAttribute("src","imagenes/button-slider-right-md-noct.svg")
-        equis.setAttribute("src", "imagenes/close-modo-noct.svg")
-      }else{
-        userExp.classList.add("userExp")
-        titleExp.classList.add("titleExp")
-        userExp.classList.remove("userExp-nocturno")
-        titleExp.classList.remove("titleExp-nocturno")
-        sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
-        sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
-        equis.setAttribute("src", "imagenes/close.svg")
-        }
-        
-
-        /*cerrar gif expandido*/
-
-        equis.addEventListener("click", e => {
-          document.getElementById("todo").style.display = "block"
-          document.getElementById("expandir").innerHTML = ""
       })
-  })
 
 
-    if (i == 46){
-        break;
-    } 
-    i++;
+        if (i == 33){
+            break;
+        } 
+        i++;
+    }
+
+    while(i < persistFavs.length) {
+      let persistFav = persistFavs[i]
+      const aUrl = document.createElement("a")
+      const div = document.createElement("div")
+      const gif = document.createElement("img")
+      let corazonUndido = document.createElement("img")
+      let divCorazon = document.createElement("div")
+      let divHover = document.createElement("div")
+      let titleBuscarGif = document.createElement("p")
+      let userBuscarGif = document.createElement("p")
+      let corazon = document.createElement("img")
+      let expandir = document.createElement("img")
+      let descargar = document.createElement("img")
+      aUrl.setAttribute("href", persistFav.url)
+      aUrl.appendChild(descargar)
+      corazonUndido.classList.add("corazonUndidoFav")
+      corazonUndido.setAttribute("src","imagenes/icon-fav-active.svg")
+      div.classList.add("divGifBuscar")
+      divHover.classList.add("hoverGifsBuscar")
+      corazon.classList.add("btnHoverBuscar")
+      expandir.classList.add("btnHoverBuscar")
+      descargar.classList.add("btnHoverBuscar")
+      corazon.setAttribute("src" ,"imagenes/icon-fav-hover.svg")
+      expandir.setAttribute("src","imagenes/icon-max-normal.svg")
+      descargar.setAttribute("src","imagenes/icon-download.svg")
+      divCorazon.appendChild(corazonUndido)
+      divCorazon.appendChild(corazon)
+      corazon.setAttribute("id","corazonBusqueda")
+      userBuscarGif.textContent = persistFav.user
+      titleBuscarGif.textContent = persistFav.title
+      gif.classList.add("gifFavorito")
+      userBuscarGif.classList.add("userBuscarGif")
+      titleBuscarGif.classList.add("titleBuscarGif")
+      divHover.appendChild(divCorazon)
+      divHover.appendChild(expandir)
+      divHover.appendChild(aUrl)
+      divHover.appendChild(userBuscarGif)
+      divHover.appendChild(titleBuscarGif)
+      div.appendChild(gif)
+      div.appendChild(divHover) 
+      gif.setAttribute("src", persistFav.img)
+      document.getElementById("boxFavoritos4").appendChild(div)
+      corazonUndido.addEventListener("click", () =>{
+        var eliminar = persistFav.id   
+        favs.splice(getIndice(eliminar),1)
+        function getIndice(eliminar){
+          var indice = -1
+          favs.filter(function(dato,i){
+            if(dato.id===eliminar){
+              indice=i
+            }
+          })
+          return indice
+        }
+        window-localStorage.setItem("favorites", JSON.stringify(favs)) 
+      })
+
+      descargar.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
+      descargar.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
+      expandir.addEventListener("mouseover", () => {expandir.src="imagenes/icon-max-hover.svg"})
+      expandir.addEventListener("mouseout", () => {expandir.src="imagenes/icon-max-normal.svg"})
+
+      gif.addEventListener("click" , () => {
+        corazonUndido.classList.remove("corazonUndidoFav")
+        corazonUndido.classList.remove("corazonUndido")
+            corazonUndido.classList.add("corazonUndidoExp")
+            let bodyExpandir = document.getElementById("expandir")
+            document.getElementById("todo").style.display = "none"
+            let equis = document.createElement("img")
+            let gifExp = document.createElement("img")
+            let containerExpandir = document.createElement("div")
+            let sliderExpIzq = document.createElement("img")
+            let divGifExp = document.createElement("div")
+            let sliderExpDer = document.createElement("img")
+            let divCorazon = document.createElement("div")
+            let corazonExp = document.createElement("img")
+            let descargarExp = document.createElement("img")
+            let userExp = document.createElement("p")
+            let titleExp = document.createElement("p")
+            let divUltimo = document.createElement("div")
+            divCorazon.classList.add("divCorazon")
+            divCorazon.appendChild(corazonExp)
+            divUltimo.classList.add("divUltimo")
+            equis.classList.add("equisExp")
+            gifExp.classList.add("gifExp")
+            containerExpandir.classList.add("containerExpandir")
+            sliderExpIzq.classList.add("sliderExpIzq")
+            divGifExp.classList.add("divGifExp")
+            sliderExpDer.classList.add("sliderExpDer")
+            corazonExp.classList.add("corazonExp")
+            descargarExp.classList.add("descargarExp")
+            userExp.classList.add("userExp")
+            titleExp.classList.add("titleExp")
+            gifExp.setAttribute("src",persistFav.img)
+            titleExp.textContent = persistFav.title
+            userExp.textContent = persistFav.user
+            equis.setAttribute("src", "imagenes/close.svg")
+            corazonExp.setAttribute("src", "imagenes/icon-fav.svg")
+            descargarExp.setAttribute("src", "imagenes/icon-download.svg")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
+            sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
+            bodyExpandir.appendChild(equis)
+            bodyExpandir.appendChild(containerExpandir)
+            containerExpandir.appendChild(sliderExpIzq)
+            containerExpandir.appendChild(divGifExp)
+            divGifExp.appendChild(gifExp)
+            containerExpandir.appendChild(sliderExpDer)
+            let divParrafos = document.createElement("div")
+            divParrafos.appendChild(userExp)
+            divParrafos.appendChild(titleExp)
+            let divBotones = document.createElement("div")
+            divBotones.classList.add("divBotones")
+            divBotones.appendChild(divCorazon)
+            divUltimo.appendChild(divParrafos)
+            divUltimo.appendChild(divBotones)
+            bodyExpandir.appendChild(divUltimo)
+            descargarExp.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
+            descargarExp.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
+            corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+            corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+
+            /*funionalidad de los botones*/
+
+            let aUrl = document.createElement("a")
+            aUrl.appendChild(descargarExp)
+            aUrl.setAttribute("href",persistFav.url)
+            divBotones.appendChild(aUrl)
+            console.log(persistFav)
+            /*mostrar gifs en favoritos*/
+
+            const isExist = favs.filter(fav => fav.id === persistFav.id)
+            var eliminar = persistFav.id
+        
+            console.log(isExist)
+            if (isExist.length > 0){
+              corazonUndido.classList.remove("corazonUndido")
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
+              divCorazon.appendChild(corazonUndido)
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonUndido.style.display="block"
+              corazonUndido.classList.remove("corazonUndidoTrend")
+              corazonUndido.setAttribute("id","corazonUndido_Exp")
+              corazonUndido.addEventListener("click", () =>{
+                
+                favs.splice(getIndice(eliminar),1)
+                function getIndice(eliminar){
+                  var indice = -1
+                  favs.filter(function(dato,i){
+                    if(dato.id===eliminar){
+                      indice=i
+                    }
+                  })
+                  return indice
+                }
+                window-localStorage.setItem("favorites", JSON.stringify(favs)) 
+              })
+            }else{
+              corazonUndido.classList.remove("corazonUndido")
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonExp.setAttribute("src","imagenes/icon-fav.svg")
+              corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+              corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+              corazonExp.addEventListener("click", e => {
+                corazonUndido.style.display="block"
+                corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
+                divCorazon.appendChild(corazonUndido)
+                corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                corazonUndido.addEventListener("click", () =>{
+                  corazonExp.setAttribute("src","imagenes/icon-fav.svg")
+                  corazonUndido.style.display="none"
+                  corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                  corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+                  favs.splice(getIndice(eliminar),1)
+                  function getIndice(eliminar){
+                    var indice = -1
+                    favs.filter(function(dato,i){
+                      if(dato.id===eliminar){
+                        indice=i
+                      }
+                    })
+                    return indice
+                  }
+                  window-localStorage.setItem("favorites", JSON.stringify(favs)) 
+                })
+                addFav(persistFav)
+              })
+            }
+
+
+          /*modo nocturno*/
+          if (modoNocturno===true){
+            userExp.classList.add("userExp-nocturno")
+            titleExp.classList.add("titleExp-nocturno")
+            userExp.classList.remove("userExp")
+            titleExp.classList.remove("titleExp")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left-md-noct.svg")
+            sliderExpDer.setAttribute("src","imagenes/button-slider-right-md-noct.svg")
+            equis.setAttribute("src", "imagenes/close-modo-noct.svg")
+          }else{
+            userExp.classList.add("userExp")
+            titleExp.classList.add("titleExp")
+            userExp.classList.remove("userExp-nocturno")
+            titleExp.classList.remove("titleExp-nocturno")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
+            sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
+            equis.setAttribute("src", "imagenes/close.svg")
+            }
+            
+
+            /*cerrar gif expandido*/
+
+            equis.addEventListener("click", e => {
+              document.getElementById("todo").style.display = "block"
+              document.getElementById("expandir").innerHTML = ""
+          })
+      })
+      
+      expandir.addEventListener("click" , () => {
+        corazonUndido.classList.remove("corazonUndidoFav")
+        corazonUndido.classList.remove("corazonUndido")
+            corazonUndido.classList.add("corazonUndidoExp")
+            let bodyExpandir = document.getElementById("expandir")
+            document.getElementById("todo").style.display = "none"
+            let equis = document.createElement("img")
+            let gifExp = document.createElement("img")
+            let containerExpandir = document.createElement("div")
+            let sliderExpIzq = document.createElement("img")
+            let divGifExp = document.createElement("div")
+            let sliderExpDer = document.createElement("img")
+            let divCorazon = document.createElement("div")
+            let corazonExp = document.createElement("img")
+            let descargarExp = document.createElement("img")
+            let userExp = document.createElement("p")
+            let titleExp = document.createElement("p")
+            let divUltimo = document.createElement("div")
+            divCorazon.classList.add("divCorazon")
+            divCorazon.appendChild(corazonExp)
+            divUltimo.classList.add("divUltimo")
+            equis.classList.add("equisExp")
+            gifExp.classList.add("gifExp")
+            containerExpandir.classList.add("containerExpandir")
+            sliderExpIzq.classList.add("sliderExpIzq")
+            divGifExp.classList.add("divGifExp")
+            sliderExpDer.classList.add("sliderExpDer")
+            corazonExp.classList.add("corazonExp")
+            descargarExp.classList.add("descargarExp")
+            userExp.classList.add("userExp")
+            titleExp.classList.add("titleExp")
+            gifExp.setAttribute("src",persistFav.img)
+            titleExp.textContent = persistFav.title
+            userExp.textContent = persistFav.user
+            equis.setAttribute("src", "imagenes/close.svg")
+            corazonExp.setAttribute("src", "imagenes/icon-fav.svg")
+            descargarExp.setAttribute("src", "imagenes/icon-download.svg")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
+            sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
+            bodyExpandir.appendChild(equis)
+            bodyExpandir.appendChild(containerExpandir)
+            containerExpandir.appendChild(sliderExpIzq)
+            containerExpandir.appendChild(divGifExp)
+            divGifExp.appendChild(gifExp)
+            containerExpandir.appendChild(sliderExpDer)
+            let divParrafos = document.createElement("div")
+            divParrafos.appendChild(userExp)
+            divParrafos.appendChild(titleExp)
+            let divBotones = document.createElement("div")
+            divBotones.classList.add("divBotones")
+            divBotones.appendChild(divCorazon)
+            divUltimo.appendChild(divParrafos)
+            divUltimo.appendChild(divBotones)
+            bodyExpandir.appendChild(divUltimo)
+            descargarExp.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
+            descargarExp.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
+            corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+            corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+
+            /*funionalidad de los botones*/
+
+            let aUrl = document.createElement("a")
+            aUrl.appendChild(descargarExp)
+            aUrl.setAttribute("href",persistFav.url)
+            divBotones.appendChild(aUrl)
+            console.log(persistFav)
+            /*mostrar gifs en favoritos*/
+
+            const isExist = favs.filter(fav => fav.id === persistFav.id)
+            var eliminar = persistFav.id
+        
+            console.log(isExist)
+            if (isExist.length > 0){
+              corazonUndido.classList.remove("corazonUndido")
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
+              divCorazon.appendChild(corazonUndido)
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonUndido.style.display="block"
+              corazonUndido.classList.remove("corazonUndidoTrend")
+              corazonUndido.setAttribute("id","corazonUndido_Exp")
+              corazonUndido.addEventListener("click", () =>{
+                
+                favs.splice(getIndice(eliminar),1)
+                function getIndice(eliminar){
+                  var indice = -1
+                  favs.filter(function(dato,i){
+                    if(dato.id===eliminar){
+                      indice=i
+                    }
+                  })
+                  return indice
+                }
+                window-localStorage.setItem("favorites", JSON.stringify(favs)) 
+              })
+            }else{
+              corazonUndido.classList.remove("corazonUndido")
+              corazonUndido.classList.add("corazonUndidoExp")
+              corazonExp.setAttribute("src","imagenes/icon-fav.svg")
+              corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+              corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+              corazonExp.addEventListener("click", e => {
+                corazonUndido.style.display="block"
+                corazonExp.setAttribute("src","imagenes/icon-fav-hover.svg")
+                divCorazon.appendChild(corazonUndido)
+                corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                corazonUndido.addEventListener("click", () =>{
+                  corazonExp.setAttribute("src","imagenes/icon-fav.svg")
+                  corazonUndido.style.display="none"
+                  corazonExp.addEventListener("mouseover", () => {corazon.src="imagenes/icon-fav-hover.svg"})
+                  corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
+                  favs.splice(getIndice(eliminar),1)
+                  function getIndice(eliminar){
+                    var indice = -1
+                    favs.filter(function(dato,i){
+                      if(dato.id===eliminar){
+                        indice=i
+                      }
+                    })
+                    return indice
+                  }
+                  window-localStorage.setItem("favorites", JSON.stringify(favs)) 
+                })
+                addFav(persistFav)
+              })
+            }
+
+
+          /*modo nocturno*/
+          if (modoNocturno===true){
+            userExp.classList.add("userExp-nocturno")
+            titleExp.classList.add("titleExp-nocturno")
+            userExp.classList.remove("userExp")
+            titleExp.classList.remove("titleExp")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left-md-noct.svg")
+            sliderExpDer.setAttribute("src","imagenes/button-slider-right-md-noct.svg")
+            equis.setAttribute("src", "imagenes/close-modo-noct.svg")
+          }else{
+            userExp.classList.add("userExp")
+            titleExp.classList.add("titleExp")
+            userExp.classList.remove("userExp-nocturno")
+            titleExp.classList.remove("titleExp-nocturno")
+            sliderExpIzq.setAttribute("src", "imagenes/button-slider-left.svg")
+            sliderExpDer.setAttribute("src","imagenes/Button-Slider-right.svg")
+            equis.setAttribute("src", "imagenes/close.svg")
+            }
+            
+
+            /*cerrar gif expandido*/
+
+            equis.addEventListener("click", e => {
+              document.getElementById("todo").style.display = "block"
+              document.getElementById("expandir").innerHTML = ""
+          })
+      })
+
+
+        if (i == 46){
+            break;
+        } 
+        i++;
+    }
 }
+
 
 const botonFav = document.getElementById("btnVerMas")
 const botonFav2 = document.getElementById("btnVerMas2")
@@ -4287,16 +4298,28 @@ const calculateTimeDuration = (secs) => {
   return hr + ":" + min + ":" + sec;
 }
 
+
+
+
+
 const showGifos = finalGifos =>{
 
   /*gifos vista vacia*/
 
+  const vacio = document.getElementById("containerGifos_vacio")
+  console.log(vacio)
+
   if (gifos.length < 1){
     document.getElementById("boxMisGifos").style.display ="none"
-    document.getElementById("containerGifos_vacio").style.display ="block"
+    vacio.style.display ="block"
+    document.getElementById("btn1").style.display="none"
+    const imgGifos = createElement("img")
+    imgGifos.src = "imagenes/icon-mis-gifos-sin-contenido.svg"
+    document.getElementById("seccionMisGifos").appendChild(imgGifos)
     return;
   }
 
+  
   for (let i = 0; i < 12; i++){
     document.getElementById("boxMisGifos").style.display ="grid"
     document.getElementById("containerGifos_vacio").style.display ="none"
@@ -5841,10 +5864,11 @@ async function getId(gifos){
 
 }
 
-if (myGifos.length > 0){
+if (myGifos!==null&&myGifos.length > 0){
     gifos = myGifos
   }
   
+
 getId(gifos)
 const pasoa_Paso1 = document.getElementById("pasoapaso1")
 const pasoa_Paso2 = document.getElementById("pasoapaso2")
