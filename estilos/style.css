@@ -1959,11 +1959,12 @@ main{
 
 }
 
-#linea-final{
+.texto{
     text-align: center;
     width: 100%;
     font-size: 15px;
     margin-top: 47px;
+    margin-left: 0px;
 }
 
 
@@ -1973,6 +1974,7 @@ main{
     font-size: 14px;
     text-align: center;
     margin-top: 35px;
+    margin-left: 0px;
 }
 
 .listaFinal li{
