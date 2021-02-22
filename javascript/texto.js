@@ -320,15 +320,13 @@ showTrendingsGifs = trendingsGifs => {
       divCorazon.appendChild(corazon)
       expandir.setAttribute("src","imagenes/icon-max-normal.svg")
       descargar.setAttribute("src","imagenes/icon-download.svg")
-      aUrl.appendChild(descargar)
-      aUrl.setAttribute("href", trendingGifs.url)
       corazon.classList.add("btnHover")
       expandir.classList.add("btnHover")
       descargar.classList.add("btnHover")
       divHover.classList.add("hoverGifs")
       corazon.setAttribute("id","corazon")
       divHover.appendChild(divCorazon)
-      divHover.appendChild(aUrl)
+      divHover.appendChild(descargar)
       divHover.appendChild(expandir)
       titleTrendingGif.textContent = trendingGifs.title
       userTrendingGif.textContent = trendingGifs.username
@@ -346,6 +344,25 @@ showTrendingsGifs = trendingsGifs => {
       descargar.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
       expandir.addEventListener("mouseover", () => {expandir.src="imagenes/icon-max-hover.svg"})
       expandir.addEventListener("mouseout", () => {expandir.src="imagenes/icon-max-normal.svg"})
+
+      async function downloadGif (trendingGifs){
+        let a = document.createElement("a")
+        let resp = await fetch (trendingGifs.images.downsized.url)
+        let file = await resp.blob()
+
+        a.download = trendingGifs.title + ".gif"
+        a.href = window.URL.createObjectURL(file)
+        a.click()
+        a.remove()
+      }
+
+      const downloadGifCallBack = () => {
+        downloadGif (trendingGifs)
+      }
+
+      descargar.addEventListener("click", downloadGifCallBack)
+
+
       gif.addEventListener("click" , () => {
         corazonUndido.classList.remove("corazonUndido")
         let bodyExpandir = document.getElementById("expandir")
@@ -397,6 +414,7 @@ showTrendingsGifs = trendingsGifs => {
         divBotones.appendChild(divCorazon)
         divUltimo.appendChild(divParrafos)
         divUltimo.appendChild(divBotones)
+        divBotones.appendChild(descargarExp)
         bodyExpandir.appendChild(divUltimo)
         descargarExp.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
         descargarExp.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
@@ -405,10 +423,23 @@ showTrendingsGifs = trendingsGifs => {
 
         /*funionalidad de los botones*/
 
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", trendingGifs.url)
-        divBotones.appendChild(aUrl)
+        async function downloadGif (trendingGifs){
+          let a = document.createElement("a")
+          let resp = await fetch (trendingGifs.images.downsized.url)
+          let file = await resp.blob()
+  
+          a.download = trendingGifs.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+  
+        const downloadGifCallBack = () => {
+          downloadGif (trendingGifs)
+        }
+  
+        descargarExp.addEventListener("click", downloadGifCallBack)
+        
 
          /*mostrar gifs en favoritos*/
 
@@ -609,6 +640,7 @@ showTrendingsGifs = trendingsGifs => {
         let divBotones = document.createElement("div")
         divBotones.classList.add("divBotones")
         divBotones.appendChild(divCorazon)
+        divBotones.appendChild(descargarExp)
         divUltimo.appendChild(divParrafos)
         divUltimo.appendChild(divBotones)
         bodyExpandir.appendChild(divUltimo)
@@ -618,11 +650,23 @@ showTrendingsGifs = trendingsGifs => {
         corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
 
         /*funionalidad de los botones*/
-
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", trendingGifs.url)
-        divBotones.appendChild(aUrl)
+        
+        async function downloadGif (trendingGifs){
+          let a = document.createElement("a")
+          let resp = await fetch (trendingGifs.images.downsized.url)
+          let file = await resp.blob()
+  
+          a.download = trendingGifs.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+  
+        const downloadGifCallBack = () => {
+          downloadGif (trendingGifs)
+        }
+  
+        descargarExp.addEventListener("click", downloadGifCallBack)
 
          /*mostrar gifs en favoritos*/
 
@@ -773,7 +817,6 @@ if(persistFavs!==null){
     let i = 0;
     while(i < persistFavs.length) {
       let persistFav = persistFavs[i]
-      const aUrl = document.createElement("a")
       const div = document.createElement("div")
       const gif = document.createElement("img")
       let corazonUndido = document.createElement("img")
@@ -784,8 +827,6 @@ if(persistFavs!==null){
       let corazon = document.createElement("img")
       let expandir = document.createElement("img")
       let descargar = document.createElement("img")
-      aUrl.setAttribute("href", persistFav.url)
-      aUrl.appendChild(descargar)
       corazonUndido.classList.add("corazonUndidoFav")
       corazonUndido.setAttribute("src","imagenes/icon-fav-active.svg")
       div.classList.add("divGifBuscar")
@@ -806,7 +847,7 @@ if(persistFavs!==null){
       titleBuscarGif.classList.add("titleBuscarGif")
       divHover.appendChild(divCorazon)
       divHover.appendChild(expandir)
-      divHover.appendChild(aUrl)
+      divHover.appendChild(descargar)
       divHover.appendChild(userBuscarGif)
       divHover.appendChild(titleBuscarGif)
       div.appendChild(gif)
@@ -832,6 +873,23 @@ if(persistFavs!==null){
       descargar.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
       expandir.addEventListener("mouseover", () => {expandir.src="imagenes/icon-max-hover.svg"})
       expandir.addEventListener("mouseout", () => {expandir.src="imagenes/icon-max-normal.svg"})
+
+      async function downloadGif (persistFav){
+        let a = document.createElement("a")
+        let resp = await fetch (persistFav.img)
+        let file = await resp.blob()
+
+        a.download = persistFav.title + ".gif"
+        a.href = window.URL.createObjectURL(file)
+        a.click()
+        a.remove()
+      }
+
+      const downloadGifCallBack = () => {
+        downloadGif (persistFav)
+      }
+
+      descargar.addEventListener("click", downloadGifCallBack)
 
       gif.addEventListener("click" , () => {
         corazonUndido.classList.remove("corazonUndidoFav")
@@ -894,10 +952,24 @@ if(persistFavs!==null){
 
             /*funionalidad de los botones*/
 
-            let aUrl = document.createElement("a")
-            aUrl.appendChild(descargarExp)
-            aUrl.setAttribute("href",persistFav.url)
-            divBotones.appendChild(aUrl)
+            async function downloadGif (persistFav){
+              let a = document.createElement("a")
+              let resp = await fetch (persistFav.img)
+              let file = await resp.blob()
+      
+              a.download = persistFav.title + ".gif"
+              a.href = window.URL.createObjectURL(file)
+              a.click()
+              a.remove()
+            }
+      
+            const downloadGifCallBack = () => {
+              downloadGif (persistFav)
+            }
+      
+            descargarExp.addEventListener("click", downloadGifCallBack)
+
+            divBotones.appendChild(descargarExp)
             console.log(persistFav)
             /*mostrar gifs en favoritos*/
 
@@ -1050,12 +1122,24 @@ if(persistFavs!==null){
             corazonExp.addEventListener("mouseout", () => {corazon.src="imagenes/icon-fav.svg"})
 
             /*funionalidad de los botones*/
+            async function downloadGif (persistFav){
+              let a = document.createElement("a")
+              let resp = await fetch (persistFav.img)
+              let file = await resp.blob()
+      
+              a.download = persistFav.title + ".gif"
+              a.href = window.URL.createObjectURL(file)
+              a.click()
+              a.remove()
+            }
+      
+            const downloadGifCallBack = () => {
+              downloadGif (persistFav)
+            }
+      
+            descargarExp.addEventListener("click", downloadGifCallBack)
 
-            let aUrl = document.createElement("a")
-            aUrl.appendChild(descargarExp)
-            aUrl.setAttribute("href",persistFav.url)
-            divBotones.appendChild(aUrl)
-            console.log(persistFav)
+            divBotones.appendChild(descargarExp)
             /*mostrar gifs en favoritos*/
 
             const isExist = favs.filter(fav => fav.id === persistFav.id)
@@ -1157,7 +1241,6 @@ if(persistFavs!==null){
 
     while(i < persistFavs.length) {
       let persistFav = persistFavs[i]
-      const aUrl = document.createElement("a")
       const div = document.createElement("div")
       const gif = document.createElement("img")
       let corazonUndido = document.createElement("img")
@@ -1168,8 +1251,6 @@ if(persistFavs!==null){
       let corazon = document.createElement("img")
       let expandir = document.createElement("img")
       let descargar = document.createElement("img")
-      aUrl.setAttribute("href", persistFav.url)
-      aUrl.appendChild(descargar)
       corazonUndido.classList.add("corazonUndidoFav")
       corazonUndido.setAttribute("src","imagenes/icon-fav-active.svg")
       div.classList.add("divGifBuscar")
@@ -1190,7 +1271,7 @@ if(persistFavs!==null){
       titleBuscarGif.classList.add("titleBuscarGif")
       divHover.appendChild(divCorazon)
       divHover.appendChild(expandir)
-      divHover.appendChild(aUrl)
+      divHover.appendChild(descargar)
       divHover.appendChild(userBuscarGif)
       divHover.appendChild(titleBuscarGif)
       div.appendChild(gif)
@@ -1211,6 +1292,24 @@ if(persistFavs!==null){
         }
         window-localStorage.setItem("favorites", JSON.stringify(favs)) 
       })
+
+      async function downloadGif (persistFav){
+        let a = document.createElement("a")
+        let resp = await fetch (persistFav.img)
+        let file = await resp.blob()
+
+        a.download = persistFav.title + ".gif"
+        a.href = window.URL.createObjectURL(file)
+        a.click()
+        a.remove()
+      }
+
+      const downloadGifCallBack = () => {
+        downloadGif (persistFav)
+      }
+
+      descargar.addEventListener("click", downloadGifCallBack)
+
 
       descargar.addEventListener("mouseover", () => {descargar.src="imagenes/icon-download-hover.svg"})
       descargar.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
@@ -1278,11 +1377,24 @@ if(persistFavs!==null){
 
             /*funionalidad de los botones*/
 
-            let aUrl = document.createElement("a")
-            aUrl.appendChild(descargarExp)
-            aUrl.setAttribute("href",persistFav.url)
-            divBotones.appendChild(aUrl)
-            console.log(persistFav)
+            async function downloadGif (persistFav){
+              let a = document.createElement("a")
+              let resp = await fetch (persistFav.img)
+              let file = await resp.blob()
+      
+              a.download = persistFav.title + ".gif"
+              a.href = window.URL.createObjectURL(file)
+              a.click()
+              a.remove()
+            }
+      
+            const downloadGifCallBack = () => {
+              downloadGif (persistFav)
+            }
+      
+            descargarExp.addEventListener("click", downloadGifCallBack)
+      
+            divBotones.appendChild(descargarExp)
             /*mostrar gifs en favoritos*/
 
             const isExist = favs.filter(fav => fav.id === persistFav.id)
@@ -1435,11 +1547,25 @@ if(persistFavs!==null){
 
             /*funionalidad de los botones*/
 
-            let aUrl = document.createElement("a")
-            aUrl.appendChild(descargarExp)
-            aUrl.setAttribute("href",persistFav.url)
-            divBotones.appendChild(aUrl)
-            console.log(persistFav)
+            async function downloadGif (persistFav){
+              let a = document.createElement("a")
+              let resp = await fetch (persistFav.img)
+              let file = await resp.blob()
+      
+              a.download = persistFav.title + ".gif"
+              a.href = window.URL.createObjectURL(file)
+              a.click()
+              a.remove()
+            }
+      
+            const downloadGifCallBack = () => {
+              downloadGif (persistFav)
+            }
+      
+            descargarExp.addEventListener("click", downloadGifCallBack)
+      
+            divBotones.appendChild(descargarExp)
+
             /*mostrar gifs en favoritos*/
 
             const isExist = favs.filter(fav => fav.id === persistFav.id)
@@ -1541,7 +1667,6 @@ if(persistFavs!==null){
 
     while(i < persistFavs.length) {
       let persistFav = persistFavs[i]
-      const aUrl = document.createElement("a")
       const div = document.createElement("div")
       const gif = document.createElement("img")
       let corazonUndido = document.createElement("img")
@@ -1552,8 +1677,6 @@ if(persistFavs!==null){
       let corazon = document.createElement("img")
       let expandir = document.createElement("img")
       let descargar = document.createElement("img")
-      aUrl.setAttribute("href", persistFav.url)
-      aUrl.appendChild(descargar)
       corazonUndido.classList.add("corazonUndidoFav")
       corazonUndido.setAttribute("src","imagenes/icon-fav-active.svg")
       div.classList.add("divGifBuscar")
@@ -1574,7 +1697,7 @@ if(persistFavs!==null){
       titleBuscarGif.classList.add("titleBuscarGif")
       divHover.appendChild(divCorazon)
       divHover.appendChild(expandir)
-      divHover.appendChild(aUrl)
+      divHover.appendChild(descargar)
       divHover.appendChild(userBuscarGif)
       divHover.appendChild(titleBuscarGif)
       div.appendChild(gif)
@@ -1600,6 +1723,23 @@ if(persistFavs!==null){
       descargar.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
       expandir.addEventListener("mouseover", () => {expandir.src="imagenes/icon-max-hover.svg"})
       expandir.addEventListener("mouseout", () => {expandir.src="imagenes/icon-max-normal.svg"})
+
+      async function downloadGif (persistFav){
+        let a = document.createElement("a")
+        let resp = await fetch (persistFav.img)
+        let file = await resp.blob()
+
+        a.download = persistFav.title + ".gif"
+        a.href = window.URL.createObjectURL(file)
+        a.click()
+        a.remove()
+      }
+
+      const downloadGifCallBack = () => {
+        downloadGif (persistFav)
+      }
+
+      descargar.addEventListener("click", downloadGifCallBack)
 
       gif.addEventListener("click" , () => {
         corazonUndido.classList.remove("corazonUndidoFav")
@@ -1662,11 +1802,25 @@ if(persistFavs!==null){
 
             /*funionalidad de los botones*/
 
-            let aUrl = document.createElement("a")
-            aUrl.appendChild(descargarExp)
-            aUrl.setAttribute("href",persistFav.url)
-            divBotones.appendChild(aUrl)
-            console.log(persistFav)
+            async function downloadGif (persistFav){
+              let a = document.createElement("a")
+              let resp = await fetch (persistFav.img)
+              let file = await resp.blob()
+      
+              a.download = persistFav.title + ".gif"
+              a.href = window.URL.createObjectURL(file)
+              a.click()
+              a.remove()
+            }
+      
+            const downloadGifCallBack = () => {
+              downloadGif (persistFav)
+            }
+      
+            descargarExp.addEventListener("click", downloadGifCallBack)
+      
+            divBotones.appendChild(descargarExp)
+
             /*mostrar gifs en favoritos*/
 
             const isExist = favs.filter(fav => fav.id === persistFav.id)
@@ -1819,11 +1973,25 @@ if(persistFavs!==null){
 
             /*funionalidad de los botones*/
 
-            let aUrl = document.createElement("a")
-            aUrl.appendChild(descargarExp)
-            aUrl.setAttribute("href",persistFav.url)
-            divBotones.appendChild(aUrl)
-            console.log(persistFav)
+            async function downloadGif (persistFav){
+              let a = document.createElement("a")
+              let resp = await fetch (persistFav.img)
+              let file = await resp.blob()
+      
+              a.download = persistFav.title + ".gif"
+              a.href = window.URL.createObjectURL(file)
+              a.click()
+              a.remove()
+            }
+      
+            const downloadGifCallBack = () => {
+              downloadGif (persistFav)
+            }
+      
+            descargarExp.addEventListener("click", downloadGifCallBack)
+      
+            divBotones.appendChild(descargarExp)
+
             /*mostrar gifs en favoritos*/
 
             const isExist = favs.filter(fav => fav.id === persistFav.id)
@@ -1924,7 +2092,6 @@ if(persistFavs!==null){
 
     while(i < persistFavs.length) {
       let persistFav = persistFavs[i]
-      const aUrl = document.createElement("a")
       const div = document.createElement("div")
       const gif = document.createElement("img")
       let corazonUndido = document.createElement("img")
@@ -1935,8 +2102,6 @@ if(persistFavs!==null){
       let corazon = document.createElement("img")
       let expandir = document.createElement("img")
       let descargar = document.createElement("img")
-      aUrl.setAttribute("href", persistFav.url)
-      aUrl.appendChild(descargar)
       corazonUndido.classList.add("corazonUndidoFav")
       corazonUndido.setAttribute("src","imagenes/icon-fav-active.svg")
       div.classList.add("divGifBuscar")
@@ -1957,7 +2122,7 @@ if(persistFavs!==null){
       titleBuscarGif.classList.add("titleBuscarGif")
       divHover.appendChild(divCorazon)
       divHover.appendChild(expandir)
-      divHover.appendChild(aUrl)
+      divHover.appendChild(descargar)
       divHover.appendChild(userBuscarGif)
       divHover.appendChild(titleBuscarGif)
       div.appendChild(gif)
@@ -1983,6 +2148,24 @@ if(persistFavs!==null){
       descargar.addEventListener("mouseout", () => {descargar.src="imagenes/icon-download.svg"})
       expandir.addEventListener("mouseover", () => {expandir.src="imagenes/icon-max-hover.svg"})
       expandir.addEventListener("mouseout", () => {expandir.src="imagenes/icon-max-normal.svg"})
+
+      async function downloadGif (persistFav){
+        let a = document.createElement("a")
+        let resp = await fetch (persistFav.img)
+        let file = await resp.blob()
+
+        a.download = persistFav.title + ".gif"
+        a.href = window.URL.createObjectURL(file)
+        a.click()
+        a.remove()
+      }
+
+      const downloadGifCallBack = () => {
+        downloadGif (persistFav)
+      }
+
+      descargar.addEventListener("click", downloadGifCallBack)
+
 
       gif.addEventListener("click" , () => {
         corazonUndido.classList.remove("corazonUndidoFav")
@@ -2045,11 +2228,25 @@ if(persistFavs!==null){
 
             /*funionalidad de los botones*/
 
-            let aUrl = document.createElement("a")
-            aUrl.appendChild(descargarExp)
-            aUrl.setAttribute("href",persistFav.url)
-            divBotones.appendChild(aUrl)
-            console.log(persistFav)
+            async function downloadGif (persistFav){
+              let a = document.createElement("a")
+              let resp = await fetch (persistFav.img)
+              let file = await resp.blob()
+      
+              a.download = persistFav.title + ".gif"
+              a.href = window.URL.createObjectURL(file)
+              a.click()
+              a.remove()
+            }
+      
+            const downloadGifCallBack = () => {
+              downloadGif (persistFav)
+            }
+      
+            descargarExp.addEventListener("click", downloadGifCallBack)
+      
+            divBotones.appendChild(descargarExp)
+
             /*mostrar gifs en favoritos*/
 
             const isExist = favs.filter(fav => fav.id === persistFav.id)
@@ -2202,11 +2399,26 @@ if(persistFavs!==null){
 
             /*funionalidad de los botones*/
 
-            let aUrl = document.createElement("a")
-            aUrl.appendChild(descargarExp)
-            aUrl.setAttribute("href",persistFav.url)
-            divBotones.appendChild(aUrl)
-            console.log(persistFav)
+            async function downloadGif (persistFav){
+              let a = document.createElement("a")
+              let resp = await fetch (persistFav.img)
+              let file = await resp.blob()
+      
+              a.download = persistFav.title + ".gif"
+              a.href = window.URL.createObjectURL(file)
+              a.click()
+              a.remove()
+            }
+      
+            const downloadGifCallBack = () => {
+              downloadGif (persistFav)
+            }
+      
+            descargarExp.addEventListener("click", downloadGifCallBack)
+      
+            divBotones.appendChild(descargarExp)
+
+            
             /*mostrar gifs en favoritos*/
 
             const isExist = favs.filter(fav => fav.id === persistFav.id)
@@ -2396,10 +2608,24 @@ const showGifs = gifs => {
     divHover.appendChild(divCorazon)
     divHover.appendChild(expandir)
 
-    let aUrl = document.createElement("a")
-    aUrl.appendChild(descargar)
-    aUrl.setAttribute("href", searchingGifs.url)
-    divHover.appendChild(aUrl)
+    async function downloadGif (searchingGifs){
+      let a = document.createElement("a")
+      let resp = await fetch (searchingGifs.images.original.url)
+      let file = await resp.blob()
+
+      a.download =searchingGifs.title + ".gif"
+      a.href = window.URL.createObjectURL(file)
+      a.click()
+      a.remove()
+    }
+
+    const downloadGifCallBack = () => {
+      downloadGif (searchingGifs)
+    }
+
+    descargar.addEventListener("click", downloadGifCallBack)
+
+    divHover.appendChild(descargar)
     
     divHover.appendChild(userBuscarGif)
     divHover.appendChild(titleBuscarGif)
@@ -2475,10 +2701,24 @@ const showGifs = gifs => {
 
         /*funionalidad de los botones*/
 
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", searchingGifs.url)
-        divBotones.appendChild(aUrl)
+        async function downloadGif (searchingGifs){
+          let a = document.createElement("a")
+          let resp = await fetch (searchingGifs.images.original.url)
+          let file = await resp.blob()
+    
+          a.download =searchingGifs.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+    
+        const downloadGifCallBack = () => {
+          downloadGif (searchingGifs)
+        }
+    
+        descargarExp.addEventListener("click", downloadGifCallBack)
+    
+        divBotones.appendChild(descargarExp)
 
          /*mostrar gifs en favoritos*/
 
@@ -2691,10 +2931,24 @@ const showGifs = gifs => {
 
         /*funionalidad de los botones*/
 
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", searchingGifs.url)
-        divBotones.appendChild(aUrl)
+        async function downloadGif (searchingGifs){
+          let a = document.createElement("a")
+          let resp = await fetch (searchingGifs.images.original.url)
+          let file = await resp.blob()
+    
+          a.download =searchingGifs.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+    
+        const downloadGifCallBack = () => {
+          downloadGif (searchingGifs)
+        }
+    
+        descargarExp.addEventListener("click", downloadGifCallBack)
+    
+        divBotones.appendChild(descargarExp)
 
          /*mostrar gifs en favoritos*/
 
@@ -2824,10 +3078,24 @@ const showGifs2 = gifs => {
     divHover.appendChild(divCorazon)
     divHover.appendChild(expandir)
     
-    let aUrl = document.createElement("a")
-    aUrl.appendChild(descargar)
-    aUrl.setAttribute("href", searchingGifs.url)
-    divHover.appendChild(aUrl)
+    async function downloadGif (searchingGifs){
+      let a = document.createElement("a")
+      let resp = await fetch (searchingGifs.images.original.url)
+      let file = await resp.blob()
+
+      a.download =searchingGifs.title + ".gif"
+      a.href = window.URL.createObjectURL(file)
+      a.click()
+      a.remove()
+    }
+
+    const downloadGifCallBack = () => {
+      downloadGif (searchingGifs)
+    }
+
+    descargar.addEventListener("click", downloadGifCallBack)
+
+    divHover.appendChild(descargar)
 
     divHover.appendChild(userBuscarGif)
     divHover.appendChild(titleBuscarGif)
@@ -2898,10 +3166,24 @@ const showGifs2 = gifs => {
 
         /*funionalidad de los botones*/
 
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", searchingGifs.url)
-        divBotones.appendChild(aUrl)
+        async function downloadGif (searchingGifs){
+          let a = document.createElement("a")
+          let resp = await fetch (searchingGifs.images.original.url)
+          let file = await resp.blob()
+    
+          a.download =searchingGifs.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+    
+        const downloadGifCallBack = () => {
+          downloadGif (searchingGifs)
+        }
+    
+        descargarExp.addEventListener("click", downloadGifCallBack)
+    
+        divBotones.appendChild(descargarExp)
 
          /*mostrar gifs en favoritos*/
 
@@ -3114,10 +3396,24 @@ const showGifs2 = gifs => {
 
         /*funionalidad de los botones*/
 
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", searchingGifs.url)
-        divBotones.appendChild(aUrl)
+        async function downloadGif (searchingGifs){
+          let a = document.createElement("a")
+          let resp = await fetch (searchingGifs.images.original.url)
+          let file = await resp.blob()
+    
+          a.download =searchingGifs.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+    
+        const downloadGifCallBack = () => {
+          downloadGif (searchingGifs)
+        }
+    
+        descargarExp.addEventListener("click", downloadGifCallBack)
+    
+        divBotones.appendChild(descargarExp)
 
          /*mostrar gifs en favoritos*/
 
@@ -3246,10 +3542,24 @@ const showGifs3 = gifs => {
     divHover.appendChild(divCorazon)
     divHover.appendChild(expandir)
     
-    let aUrl = document.createElement("a")
-    aUrl.appendChild(descargar)
-    aUrl.setAttribute("href", searchingGifs.url)
-    divHover.appendChild(aUrl)
+    async function downloadGif (searchingGifs){
+      let a = document.createElement("a")
+      let resp = await fetch (searchingGifs.images.original.url)
+      let file = await resp.blob()
+
+      a.download =searchingGifs.title + ".gif"
+      a.href = window.URL.createObjectURL(file)
+      a.click()
+      a.remove()
+    }
+
+    const downloadGifCallBack = () => {
+      downloadGif (searchingGifs)
+    }
+
+    descargar.addEventListener("click", downloadGifCallBack)
+
+    divHover.appendChild(descargar)
 
     divHover.appendChild(userBuscarGif)
     divHover.appendChild(titleBuscarGif)
@@ -3321,10 +3631,24 @@ const showGifs3 = gifs => {
 
         /*funionalidad de los botones*/
 
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", searchingGifs.url)
-        divBotones.appendChild(aUrl)
+        async function downloadGif (searchingGifs){
+          let a = document.createElement("a")
+          let resp = await fetch (searchingGifs.images.original.url)
+          let file = await resp.blob()
+    
+          a.download =searchingGifs.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+    
+        const downloadGifCallBack = () => {
+          downloadGif (searchingGifs)
+        }
+    
+        descargarExp.addEventListener("click", downloadGifCallBack)
+    
+        divBotones.appendChild(descargarExp)
 
          /*mostrar gifs en favoritos*/
 
@@ -3537,10 +3861,24 @@ const showGifs3 = gifs => {
 
         /*funionalidad de los botones*/
 
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", searchingGifs.url)
-        divBotones.appendChild(aUrl)
+        async function downloadGif (searchingGifs){
+          let a = document.createElement("a")
+          let resp = await fetch (searchingGifs.images.original.url)
+          let file = await resp.blob()
+    
+          a.download =searchingGifs.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+    
+        const downloadGifCallBack = () => {
+          downloadGif (searchingGifs)
+        }
+    
+        descargarExp.addEventListener("click", downloadGifCallBack)
+    
+        divBotones.appendChild(descargarExp)
 
          /*mostrar gifs en favoritos*/
 
@@ -3668,10 +4006,24 @@ const showGifs4 = gifs => {
     divHover.appendChild(divCorazon)
     divHover.appendChild(expandir)
 
-    let aUrl = document.createElement("a")
-    aUrl.appendChild(descargar)
-    aUrl.setAttribute("href", searchingGifs.url)
-    divHover.appendChild(aUrl)
+      async function downloadGif (searchingGifs){
+      let a = document.createElement("a")
+      let resp = await fetch (searchingGifs.images.original.url)
+      let file = await resp.blob()
+
+      a.download =searchingGifs.title + ".gif"
+      a.href = window.URL.createObjectURL(file)
+      a.click()
+      a.remove()
+    }
+
+    const downloadGifCallBack = () => {
+      downloadGif (searchingGifs)
+    }
+
+    descargar.addEventListener("click", downloadGifCallBack)
+
+    divHover.appendChild(descargar)
 
     divHover.appendChild(userBuscarGif)
     divHover.appendChild(titleBuscarGif)
@@ -3743,10 +4095,24 @@ const showGifs4 = gifs => {
 
         /*funionalidad de los botones*/
 
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", searchingGifs.url)
-        divBotones.appendChild(aUrl)
+        async function downloadGif (searchingGifs){
+          let a = document.createElement("a")
+          let resp = await fetch (searchingGifs.images.original.url)
+          let file = await resp.blob()
+    
+          a.download =searchingGifs.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+    
+        const downloadGifCallBack = () => {
+          downloadGif (searchingGifs)
+        }
+    
+        descargarExp.addEventListener("click", downloadGifCallBack)
+    
+        divBotones.appendChild(descargarExp)
 
          /*mostrar gifs en favoritos*/
 
@@ -3960,10 +4326,24 @@ const showGifs4 = gifs => {
 
         /*funionalidad de los botones*/
 
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", searchingGifs.url)
-        divBotones.appendChild(aUrl)
+        async function downloadGif (searchingGifs){
+          let a = document.createElement("a")
+          let resp = await fetch (searchingGifs.images.original.url)
+          let file = await resp.blob()
+    
+          a.download =searchingGifs.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+    
+        const downloadGifCallBack = () => {
+          downloadGif (searchingGifs)
+        }
+    
+        descargarExp.addEventListener("click", downloadGifCallBack)
+    
+        divBotones.appendChild(descargarExp)
 
          /*mostrar gifs en favoritos*/
 
@@ -4334,9 +4714,6 @@ const showGifos = finalGifos =>{
     const expandir = document.createElement("img")
     const titleGifo = document.createElement("p")
     const userGifo = document.createElement("p")
-    let aUrl = document.createElement("a")
-    aUrl.appendChild(descargar)
-    aUrl.setAttribute("href", finalGifo.url)
     divGif.classList.add("divGif")
     divHover.classList.add("hoverGifos")
     trash.classList.add("btnHoverGifo")
@@ -4353,7 +4730,7 @@ const showGifos = finalGifos =>{
     gif.setAttribute("src", finalGifo.images.original.url)
     gif.classList.add("gifo")
     divHover.appendChild(trash)
-    divHover.appendChild(aUrl)
+    divHover.appendChild(descargar)
     divHover.appendChild(expandir)
     divHover.appendChild(titleGifo)
     divHover.appendChild(userGifo)
@@ -4366,6 +4743,26 @@ const showGifos = finalGifos =>{
     expandir.addEventListener("mouseout", () => {expandir.src="imagenes/icon-max-normal.svg"})
     trash.addEventListener("mouseover", () => {trash.src="imagenes/icon-trash-hover.svg"})
     trash.addEventListener("mouseout", () => {trash.src="imagenes/icon-trash-normal.svg"})
+
+    async function downloadGif (finalGifo){
+      let a = document.createElement("a")
+      let resp = await fetch (finalGifo.images.original.url)
+      let file = await resp.blob()
+
+      a.download =finalGifo.title + ".gif"
+      a.href = window.URL.createObjectURL(file)
+      a.click()
+      a.remove()
+    }
+
+    const downloadGifCallBack = () => {
+      downloadGif (finalGifo)
+    }
+
+    descargar.addEventListener("click", downloadGifCallBack)
+
+    
+    
     gif.addEventListener("click", () => {
       corazonUndido.classList.remove("corazonUndido")
         let bodyExpandir = document.getElementById("expandir")
@@ -4425,10 +4822,24 @@ const showGifos = finalGifos =>{
 
         /*funionalidad de los botones*/
 
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", finalGifo.url)
-        divBotones.appendChild(aUrl)
+        async function downloadGif (finalGifo){
+          let a = document.createElement("a")
+          let resp = await fetch (finalGifo.images.original.url)
+          let file = await resp.blob()
+    
+          a.download =finalGifo.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+    
+        const downloadGifCallBack = () => {
+          downloadGif (finalGifo)
+        }
+    
+        descargarExp.addEventListener("click", downloadGifCallBack)
+    
+        divBotones.appendChild(descargarExp)
 
          /*mostrar gifs en favoritos*/
 
@@ -4584,10 +4995,24 @@ const showGifos = finalGifos =>{
 
         /*funionalidad de los botones*/
 
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", finalGifo.url)
-        divBotones.appendChild(aUrl)
+        async function downloadGif (finalGifo){
+          let a = document.createElement("a")
+          let resp = await fetch (finalGifo.images.original.url)
+          let file = await resp.blob()
+    
+          a.download =finalGifo.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+    
+        const downloadGifCallBack = () => {
+          downloadGif (finalGifo)
+        }
+    
+        descargarExp.addEventListener("click", downloadGifCallBack)
+    
+        divBotones.appendChild(descargarExp)
 
          /*mostrar gifs en favoritos*/
 
@@ -4708,9 +5133,6 @@ const showGifos2 = finalGifos => {
     const expandir = document.createElement("img")
     const titleGifo = document.createElement("p")
     const userGifo = document.createElement("p")
-    let aUrl = document.createElement("a")
-    aUrl.appendChild(descargar)
-    aUrl.setAttribute("href", finalGifo.url)
     divGif.classList.add("divGif")
     divHover.classList.add("hoverGifos")
     trash.classList.add("btnHoverGifo")
@@ -4727,7 +5149,7 @@ const showGifos2 = finalGifos => {
     gif.setAttribute("src", finalGifo.images.original.url)
     gif.classList.add("gifo")
     divHover.appendChild(trash)
-    divHover.appendChild(aUrl)
+    divHover.appendChild(descargar)
     divHover.appendChild(expandir)
     divHover.appendChild(titleGifo)
     divHover.appendChild(userGifo)
@@ -4740,6 +5162,26 @@ const showGifos2 = finalGifos => {
     expandir.addEventListener("mouseout", () => {expandir.src="imagenes/icon-max-normal.svg"})
     trash.addEventListener("mouseover", () => {trash.src="imagenes/icon-trash-hover.svg"})
     trash.addEventListener("mouseout", () => {trash.src="imagenes/icon-trash-normal.svg"})
+
+    async function downloadGif (finalGifo){
+      let a = document.createElement("a")
+      let resp = await fetch (finalGifo.images.original.url)
+      let file = await resp.blob()
+
+      a.download =finalGifo.title + ".gif"
+      a.href = window.URL.createObjectURL(file)
+      a.click()
+      a.remove()
+    }
+
+    const downloadGifCallBack = () => {
+      downloadGif (finalGifo)
+    }
+
+    descargar.addEventListener("click", downloadGifCallBack)
+
+    
+
     gif.addEventListener("click", () => {
       corazonUndido.classList.remove("corazonUndido")
         let bodyExpandir = document.getElementById("expandir")
@@ -4799,10 +5241,24 @@ const showGifos2 = finalGifos => {
 
         /*funionalidad de los botones*/
 
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", finalGifo.url)
-        divBotones.appendChild(aUrl)
+        async function downloadGif (finalGifo){
+          let a = document.createElement("a")
+          let resp = await fetch (finalGifo.images.original.url)
+          let file = await resp.blob()
+    
+          a.download =finalGifo.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+    
+        const downloadGifCallBack = () => {
+          downloadGif (finalGifo)
+        }
+    
+        descargarExp.addEventListener("click", downloadGifCallBack)
+    
+        divBotones.appendChild(descargarExp)
 
          /*mostrar gifs en favoritos*/
 
@@ -4958,10 +5414,24 @@ const showGifos2 = finalGifos => {
 
         /*funionalidad de los botones*/
 
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", finalGifo.url)
-        divBotones.appendChild(aUrl)
+        async function downloadGif (finalGifo){
+          let a = document.createElement("a")
+          let resp = await fetch (finalGifo.images.original.url)
+          let file = await resp.blob()
+    
+          a.download =finalGifo.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+    
+        const downloadGifCallBack = () => {
+          downloadGif (finalGifo)
+        }
+    
+        descargarExp.addEventListener("click", downloadGifCallBack)
+    
+        divBotones.appendChild(descargarExp)
 
          /*mostrar gifs en favoritos*/
 
@@ -5082,9 +5552,6 @@ const showGifos3 = finalGifos => {
     const expandir = document.createElement("img")
     const titleGifo = document.createElement("p")
     const userGifo = document.createElement("p")
-    let aUrl = document.createElement("a")
-    aUrl.appendChild(descargar)
-    aUrl.setAttribute("href", finalGifo.url)
     divGif.classList.add("divGif")
     divHover.classList.add("hoverGifos")
     trash.classList.add("btnHoverGifo")
@@ -5101,7 +5568,7 @@ const showGifos3 = finalGifos => {
     gif.setAttribute("src", finalGifo.images.original.url)
     gif.classList.add("gifo")
     divHover.appendChild(trash)
-    divHover.appendChild(aUrl)
+    divHover.appendChild(descargar)
     divHover.appendChild(expandir)
     divHover.appendChild(titleGifo)
     divHover.appendChild(userGifo)
@@ -5114,6 +5581,25 @@ const showGifos3 = finalGifos => {
     expandir.addEventListener("mouseout", () => {expandir.src="imagenes/icon-max-normal.svg"})
     trash.addEventListener("mouseover", () => {trash.src="imagenes/icon-trash-hover.svg"})
     trash.addEventListener("mouseout", () => {trash.src="imagenes/icon-trash-normal.svg"})
+
+    async function downloadGif (finalGifo){
+      let a = document.createElement("a")
+      let resp = await fetch (finalGifo.images.original.url)
+      let file = await resp.blob()
+
+      a.download =finalGifo.title + ".gif"
+      a.href = window.URL.createObjectURL(file)
+      a.click()
+      a.remove()
+    }
+
+    const downloadGifCallBack = () => {
+      downloadGif (finalGifo)
+    }
+
+    descargarExp.addEventListener("click", downloadGifCallBack)
+
+
     gif.addEventListener("click", () => {
       corazonUndido.classList.remove("corazonUndido")
         let bodyExpandir = document.getElementById("expandir")
@@ -5173,10 +5659,24 @@ const showGifos3 = finalGifos => {
 
         /*funionalidad de los botones*/
 
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", finalGifo.url)
-        divBotones.appendChild(aUrl)
+        async function downloadGif (finalGifo){
+          let a = document.createElement("a")
+          let resp = await fetch (finalGifo.images.original.url)
+          let file = await resp.blob()
+    
+          a.download =finalGifo.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+    
+        const downloadGifCallBack = () => {
+          downloadGif (finalGifo)
+        }
+    
+        descargarExp.addEventListener("click", downloadGifCallBack)
+    
+        divBotones.appendChild(descargarExp)
 
          /*mostrar gifs en favoritos*/
 
@@ -5332,10 +5832,24 @@ const showGifos3 = finalGifos => {
 
         /*funionalidad de los botones*/
 
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", finalGifo.url)
-        divBotones.appendChild(aUrl)
+        async function downloadGif (finalGifo){
+          let a = document.createElement("a")
+          let resp = await fetch (finalGifo.images.original.url)
+          let file = await resp.blob()
+    
+          a.download =finalGifo.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+    
+        const downloadGifCallBack = () => {
+          downloadGif (finalGifo)
+        }
+    
+        descargarExp.addEventListener("click", downloadGifCallBack)
+    
+        divBotones.appendChild(descargarExp)
 
          /*mostrar gifs en favoritos*/
 
@@ -5457,9 +5971,6 @@ const showGifos4 = finalGifos => {
     const expandir = document.createElement("img")
     const titleGifo = document.createElement("p")
     const userGifo = document.createElement("p")
-    let aUrl = document.createElement("a")
-    aUrl.appendChild(descargar)
-    aUrl.setAttribute("href",finalGifo.url)
     divGif.classList.add("divGif")
     divHover.classList.add("hoverGifos")
     trash.classList.add("btnHoverGifo")
@@ -5476,7 +5987,7 @@ const showGifos4 = finalGifos => {
     gif.setAttribute("src", finalGifo.images.original.url)
     gif.classList.add("gifo")
     divHover.appendChild(trash)
-    divHover.appendChild(aUrl)
+    divHover.appendChild(descargar)
     divHover.appendChild(expandir)
     divHover.appendChild(titleGifo)
     divHover.appendChild(userGifo)
@@ -5489,6 +6000,25 @@ const showGifos4 = finalGifos => {
     expandir.addEventListener("mouseout", () => {expandir.src="imagenes/icon-max-normal.svg"})
     trash.addEventListener("mouseover", () => {trash.src="imagenes/icon-trash-hover.svg"})
     trash.addEventListener("mouseout", () => {trash.src="imagenes/icon-trash-normal.svg"})
+
+    async function downloadGif (finalGifo){
+      let a = document.createElement("a")
+      let resp = await fetch (finalGifo.images.original.url)
+      let file = await resp.blob()
+
+      a.download =finalGifo.title + ".gif"
+      a.href = window.URL.createObjectURL(file)
+      a.click()
+      a.remove()
+    }
+
+    const downloadGifCallBack = () => {
+      downloadGif (finalGifo)
+    }
+
+    descargar.addEventListener("click", downloadGifCallBack)
+
+
     gif.addEventListener("click", () => {
       corazonUndido.classList.remove("corazonUndido")
         let bodyExpandir = document.getElementById("expandir")
@@ -5548,10 +6078,24 @@ const showGifos4 = finalGifos => {
 
         /*funionalidad de los botones*/
 
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", finalGifo.url)
-        divBotones.appendChild(aUrl)
+        async function downloadGif (finalGifo){
+          let a = document.createElement("a")
+          let resp = await fetch (finalGifo.images.original.url)
+          let file = await resp.blob()
+    
+          a.download =finalGifo.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+    
+        const downloadGifCallBack = () => {
+          downloadGif (finalGifo)
+        }
+    
+        descargarExp.addEventListener("click", downloadGifCallBack)
+    
+        divBotones.appendChild(descargarExp)
 
          /*mostrar gifs en favoritos*/
 
@@ -5707,10 +6251,25 @@ const showGifos4 = finalGifos => {
 
         /*funionalidad de los botones*/
 
-        let aUrl = document.createElement("a")
-        aUrl.appendChild(descargarExp)
-        aUrl.setAttribute("href", finalGifo.url)
-        divBotones.appendChild(aUrl)
+        
+        async function downloadGif (finalGifo){
+          let a = document.createElement("a")
+          let resp = await fetch (finalGifo.images.original.url)
+          let file = await resp.blob()
+    
+          a.download =finalGifo.title + ".gif"
+          a.href = window.URL.createObjectURL(file)
+          a.click()
+          a.remove()
+        }
+    
+        const downloadGifCallBack = () => {
+          downloadGif (finalGifo)
+        }
+    
+        descargarExp.addEventListener("click", downloadGifCallBack)
+    
+        divBotones.appendChild(descargarExp)
 
          /*mostrar gifs en favoritos*/
 
