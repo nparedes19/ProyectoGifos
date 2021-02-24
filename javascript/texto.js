@@ -4684,25 +4684,18 @@ const calculateTimeDuration = (secs) => {
 
 const showGifos = finalGifos =>{
 
-  /*gifos vista vacia*/
-
-  const vacio = document.getElementById("containerGifos_vacio")
-  console.log(vacio)
-
   if (gifos.length < 1){
     document.getElementById("boxMisGifos").style.display ="none"
     vacio.style.display ="block"
     document.getElementById("btn1").style.display="none"
-    const imgGifos = createElement("img")
-    imgGifos.src = "imagenes/icon-mis-gifos-sin-contenido.svg"
-    document.getElementById("seccionMisGifos").appendChild(imgGifos)
-    return;
+    
   }
-
   
+
   for (let i = 0; i < 12; i++){
     document.getElementById("boxMisGifos").style.display ="grid"
     document.getElementById("containerGifos_vacio").style.display ="none"
+    document.getElementById("btn1").style.display="block"
     const finalGifo = finalGifos[i]
     let corazonUndido = document.createElement("img")
     corazonUndido.setAttribute("src","imagenes/icon-fav-active.svg")
@@ -6415,26 +6408,36 @@ async function getId(gifos){
 
   const myGifos = await getGifos(myId)
   let finalGifos = myGifos.data
-
+  
   showGifos(finalGifos)
   showGifos2(finalGifos)
   showGifos3(finalGifos)
   showGifos4(finalGifos)
-
 }
 
 if (myGifos!==null&&myGifos.length > 0){
     gifos = myGifos
+    
   }
-  
 
-getId(gifos)
+ 
+ 
+
+
 const pasoa_Paso1 = document.getElementById("pasoapaso1")
 const pasoa_Paso2 = document.getElementById("pasoapaso2")
 const pasoa_Paso3 = document.getElementById("pasoapaso3")
 const btnCrear = document.getElementById("crear")
 const crearGIFOSInfoTimer = document.getElementById("cronometro")
 btnCrear.addEventListener("click", e => {
+  if(document.getElementById("videoHover")!=null){
+    document.getElementById("videoHover").style.display="none"
+  }
+  
+  document.getElementById("pasoapaso3").classList.remove("hover-gifos")
+  document.getElementById("pasoapaso3").classList.add("pasoapaso")
+  document.querySelector(".containerBordes1").style.display ="flex"
+  document.querySelector(".containerBordes2").style.display ="flex"
   btnMisGifos.classList.remove("active")
   btnFav.classList.remove("active")
   aDarkMode.classList.remove("active")
@@ -6558,12 +6561,16 @@ function getStreamAndRecord () {
           console.log(finalId)
 
           
+          
+
+
           pasoa_Paso2.classList.remove("hover-gifos")
           pasoa_Paso2.classList.add("pasoapaso")
           pasoa_Paso3.classList.add("hover-gifos")
           pasoa_Paso3.classList.remove("pasoapaso")
           const div_video = document.createElement("div")
           div_video.classList.add("hoverVideo")
+          div_video.setAttribute("id", "videoHover")
           const parrafoVideo = document.createElement("p")
           const imgVideo = document.createElement("img")
           parrafoVideo.classList.add("parrafoVideo")
@@ -6589,6 +6596,7 @@ function getStreamAndRecord () {
           descargarGifo.setAttribute("id", "descargarGifo")
           urlGifo.classList.add("btnGifos")
           descargarGifo.classList.add("btnGifos")
+          
           setTimeout(() => {
             div_video.appendChild(descargarGifo)
             div_video.appendChild(aUrl)
@@ -6598,7 +6606,7 @@ function getStreamAndRecord () {
             descargarGifo.addEventListener("mouseout", () => {descargarGifo.src="imagenes/icon-download.svg"})
             urlGifo.addEventListener("mouseover", () => {urlGifo.src="imagenes/icon-link-hover.svg"})
             urlGifo.addEventListener("mouseout", () => {urlGifo.src="imagenes/icon-link-normal.svg"})
-
+            
             async function downloadGif (finalId){
               let a = document.createElement("a")
               let resp = await fetch (finalId.images.original.url)
@@ -6621,15 +6629,20 @@ function getStreamAndRecord () {
           }, 3000);
           
           
+          
         })
+        
       })
       
     })
     containerActions.appendChild(btnStop)
 
-
+    
   })
+  
 }
+
+
 
 const recordVideo = () => {
   /*obtener video*/
@@ -6681,9 +6694,19 @@ btnComenzar.addEventListener("click", e => {
 })
 
 /*mis gifos*/
-
+const vacio = document.getElementById("containerGifos_vacio")
 const btnMisGifos = document.getElementById("btnMisGifos")
 btnMisGifos.addEventListener("click", e => {
+document.getElementById("boxMisGifos").innerHTML = ""
+  if (gifos.length < 1){
+    document.getElementById("boxMisGifos").style.display ="none"
+    vacio.style.display ="block"
+    document.getElementById("btn1").style.display="none" 
+  }else{
+    getId(gifos)
+  }
+
+  
   document.getElementById("seccionUno").style.display = "none"
   document.getElementById("seccionMisGifos").style.display = "block"
   document.getElementById("seccionFavoritos").style.display ="none"
